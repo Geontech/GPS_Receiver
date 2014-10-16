@@ -16,11 +16,11 @@ class GPS_Receiver_i : public GPS_Receiver_base
 
         // Frontend GPS Support
         frontend::GPSInfo get_gps_info(const std::string& port_name) { return _gps_info; }
-		void set_gps_info(const std::string& port_name, const frontend::GPSInfo &gps_info) {}
-		frontend::GpsTimePos get_gps_time_pos(const std::string& port_name) { return _gps_time_pos; }
-		void set_gps_time_pos(const std::string& port_name, const frontend::GpsTimePos &gps_time_pos) {}
-
-		void configure_position(const position_struct* oldValue, const position_struct* newValue);
+        void set_gps_info(const std::string& port_name, const frontend::GPSInfo &gps_info) {}
+        frontend::GpsTimePos get_gps_time_pos(const std::string& port_name) { return _gps_time_pos; }
+        void set_gps_time_pos(const std::string& port_name, const frontend::GpsTimePos &gps_time_pos) {}
+        
+        void configure_position(const position_struct* oldValue, const position_struct* newValue);
 
     protected:
         void updateUsageState();
