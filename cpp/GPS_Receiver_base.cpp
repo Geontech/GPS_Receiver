@@ -101,18 +101,10 @@ void GPS_Receiver_base::loadProperties()
                 "eq",
                 "allocation,configure");
 
-    addProperty(stream_id,
-                "stream_id",
-                "",
-                "readwrite",
-                "",
-                "external",
-                "configure");
-
-    addProperty(serial_port,
-                "/dev/ttyUSB0",
-                "serial_port",
-                "",
+    addProperty(position,
+                position_struct(),
+                "position",
+                "position",
                 "readwrite",
                 "",
                 "external",

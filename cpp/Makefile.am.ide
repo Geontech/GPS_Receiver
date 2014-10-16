@@ -8,5 +8,4 @@ redhawk_SOURCES_auto += GPS_Receiver.h
 redhawk_SOURCES_auto += GPS_Receiver_base.cpp
 redhawk_SOURCES_auto += GPS_Receiver_base.h
 redhawk_SOURCES_auto += main.cpp
-redhawk_LDADD_auto = /usr/local/lib/libnmea.a
-redhawk_LDFLAGS_auto = -lusb-1.0
+redhawk_SOURCES_auto += struct_props.h

@@ -765,19 +765,7 @@ GPS_Receiver-GPS_Receiver.o: GPS_Receiver.cpp GPS_Receiver.h \
  /usr/local/redhawk/core/include/frontend/fe_tuner_port_impl.h \
  /usr/local/redhawk/core/include/redhawk/FRONTEND/TunerControl.h \
  /usr/local/redhawk/core/include/frontend/fe_rfsource_port_impl.h \
- /usr/local/include/nmea/nmea.h /usr/local/include/nmea/./config.h \
- /usr/local/include/nmea/./units.h /usr/local/include/nmea/./config.h \
- /usr/local/include/nmea/./gmath.h /usr/local/include/nmea/./info.h \
- /usr/local/include/nmea/./nmeatime.h /usr/local/include/nmea/./info.h \
- /usr/local/include/nmea/./sentence.h \
- /usr/local/include/nmea/./generate.h \
- /usr/local/include/nmea/./sentence.h \
- /usr/local/include/nmea/./generator.h /usr/local/include/nmea/./parse.h \
- /usr/local/include/nmea/./parser.h /usr/local/include/nmea/./context.h \
- /usr/include/termios.h /usr/include/bits/termios.h \
- /usr/include/sys/ttydefaults.h /usr/include/fcntl.h \
- /usr/include/bits/fcntl.h /usr/include/bits/uio.h \
- /usr/include/bits/stat.h
+ struct_props.h
 
 GPS_Receiver.h:
 
@@ -2491,46 +2479,4 @@ GPS_Receiver_base.h:
 
 /usr/local/redhawk/core/include/frontend/fe_rfsource_port_impl.h:
 
-/usr/local/include/nmea/nmea.h:
-
-/usr/local/include/nmea/./config.h:
-
-/usr/local/include/nmea/./units.h:
-
-/usr/local/include/nmea/./config.h:
-
-/usr/local/include/nmea/./gmath.h:
-
-/usr/local/include/nmea/./info.h:
-
-/usr/local/include/nmea/./nmeatime.h:
-
-/usr/local/include/nmea/./info.h:
-
-/usr/local/include/nmea/./sentence.h:
-
-/usr/local/include/nmea/./generate.h:
-
-/usr/local/include/nmea/./sentence.h:
-
-/usr/local/include/nmea/./generator.h:
-
-/usr/local/include/nmea/./parse.h:
-
-/usr/local/include/nmea/./parser.h:
-
-/usr/local/include/nmea/./context.h:
-
-/usr/include/termios.h:
-
-/usr/include/bits/termios.h:
-
-/usr/include/sys/ttydefaults.h:
-
-/usr/include/fcntl.h:
-
-/usr/include/bits/fcntl.h:
-
-/usr/include/bits/uio.h:
-
-/usr/include/bits/stat.h:
+struct_props.h:

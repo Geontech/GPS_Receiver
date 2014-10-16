@@ -13,9 +13,13 @@
     <kind kindtype="allocation"/>
     <action type="eq"/>
   </simple>
-  <simple id="serial_port" mode="readwrite" type="string">
-    <value>/dev/ttyUSB0</value>
-    <kind kindtype="configure"/>
-    <action type="external"/>
-  </simple>
+  <struct id="position" mode="readwrite" name="position">
+    <simple id="position::latitude" name="latitude" type="double">
+      <value>0</value>
+    </simple>
+    <simple id="position::longitude" name="longitude" type="double">
+      <value>0</value>
+    </simple>
+    <configurationkind kindtype="configure"/>
+  </struct>
 </properties>

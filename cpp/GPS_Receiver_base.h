@@ -6,6 +6,7 @@
 #include <ossie/ThreadedComponent.h>
 
 #include <frontend/frontend.h>
+#include "struct_props.h"
 // #include "port_impl.h"
 
 class GPS_Receiver_base : public Device_impl, protected ThreadedComponent, public virtual frontend::gps_delegation
@@ -29,8 +30,7 @@ class GPS_Receiver_base : public Device_impl, protected ThreadedComponent, publi
         // Member variables exposed as properties
         std::string device_kind;
         std::string device_model;
-        std::string stream_id;
-        std::string serial_port;
+        position_struct position;
 
         // Ports
         frontend::InGPSPort *gps;

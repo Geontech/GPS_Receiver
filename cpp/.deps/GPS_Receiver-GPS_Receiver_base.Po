@@ -764,7 +764,8 @@ GPS_Receiver-GPS_Receiver_base.o: GPS_Receiver_base.cpp \
  /usr/local/redhawk/core/include/frontend/fe_tuner_struct_props.h \
  /usr/local/redhawk/core/include/frontend/fe_tuner_port_impl.h \
  /usr/local/redhawk/core/include/redhawk/FRONTEND/TunerControl.h \
- /usr/local/redhawk/core/include/frontend/fe_rfsource_port_impl.h
+ /usr/local/redhawk/core/include/frontend/fe_rfsource_port_impl.h \
+ struct_props.h
 
 GPS_Receiver_base.h:
 
@@ -2475,3 +2476,5 @@ GPS_Receiver_base.h:
 /usr/local/redhawk/core/include/redhawk/FRONTEND/TunerControl.h:
 
 /usr/local/redhawk/core/include/frontend/fe_rfsource_port_impl.h:
+
+struct_props.h:

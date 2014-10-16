@@ -3,10 +3,6 @@
 
 #include "GPS_Receiver_base.h"
 
-#include <boost/circular_buffer.hpp>
-#include <nmea/nmea.h>
-using namespace boost;
-
 class GPS_Receiver_i : public GPS_Receiver_base
 {
     ENABLE_LOGGING
@@ -24,32 +20,13 @@ class GPS_Receiver_i : public GPS_Receiver_base
 		frontend::GpsTimePos get_gps_time_pos(const std::string& port_name) { return _gps_time_pos; }
 		void set_gps_time_pos(const std::string& port_name, const frontend::GpsTimePos &gps_time_pos) {}
 
-		void start() throw(CF::Resource::StartError, CORBA::SystemException);
-		void stop() throw(CF::Resource::StopError, CORBA::SystemException);
-
-		void configure_serial_port(const char* oldValue, const char* newValue);
+		void configure_position(const position_struct* oldValue, const position_struct* newValue);
 
     protected:
         void updateUsageState();
 
         frontend::GPSInfo _gps_info;
         frontend::GpsTimePos _gps_time_pos;
-
-        // File descriptor for serial stream from GPS
-		// Circular buffer for NMEA messages
-		// Mutex for reading the buffer
-		// Worker thread instance to avoid blocking service_function
-		int _gps_fd;
-		circular_buffer<unsigned char> _buffer;
-		mutex _bufferMutex;
-		thread *_worker;
-
-		// For NMEA
-		nmeaPARSER _parser;
-		nmeaINFO _bufferInfo;
-
-		void _construct();
-		void _workerFunction();
 };
 
 #endif // GPS_RECEIVER_IMPL_H
