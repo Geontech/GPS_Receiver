@@ -1,4 +1,5 @@
 c55c3545d4940ca9ffba4e0953df8972  GPS_Receiver_base.cpp
+8a67e8d5beb027fe15afe31bac787007  GPS_Receiver_base.h
 39eee990adf5eb753068172928405e43  main.cpp
 c99df9fa4ab0cd042eac42fcee6441c3  reconf
 d135e388b7c529d2a137ae9e45401b57  GPS_Receiver.cpp
@@ -10,4 +11,3 @@ da2bae3e39929f777f0c8bfd6c81337e  struct_props.h
 936674262cb2a064a6de7f539d0b856f  port_impl.cpp
 2edeb4570ba55b42155b992f38587fb6  build.sh
 ba1a54568ca52538bca2fd68ffc0078b  port_impl.h
-8a67e8d5beb027fe15afe31bac787007  GPS_Receiver_base.h
