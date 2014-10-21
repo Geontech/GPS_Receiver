@@ -3,4 +3,7 @@
   <implSettings key="cpp">
     <value outputDir="cpp" template="redhawk.codegen.jinja.cpp.component.pull" generatorId="gov.redhawk.ide.codegen.jinja.cplusplus.CplusplusGenerator" primary="true"/>
   </implSettings>
+  <implSettings key="cpp_impl_arm">
+    <value outputDir="cpp_arm" template="redhawk.codegen.jinja.cpp.component.pull" generatorId="gov.redhawk.ide.codegen.jinja.cplusplus.CplusplusGenerator"/>
+  </implSettings>
 </codegen:WaveDevSettings>

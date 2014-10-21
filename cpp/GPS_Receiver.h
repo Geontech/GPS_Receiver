@@ -24,7 +24,7 @@ class GPS_Receiver_i : public GPS_Receiver_base
 
     protected:
         void updateUsageState();
-
+        void construct();
         frontend::GPSInfo _gps_info;
         frontend::GpsTimePos _gps_time_pos;
 };
