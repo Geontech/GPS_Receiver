@@ -10,6 +10,7 @@
 
 class GPS_Receiver_base : public Device_impl, protected ThreadedComponent, public virtual frontend::gps_delegation
 {
+
     public:
         GPS_Receiver_base(char *devMgr_ior, char *id, char *lbl, char *sftwrPrfl);
         GPS_Receiver_base(char *devMgr_ior, char *id, char *lbl, char *sftwrPrfl, char *compDev);
@@ -29,7 +30,6 @@ class GPS_Receiver_base : public Device_impl, protected ThreadedComponent, publi
         // Member variables exposed as properties
         std::string device_kind;
         std::string device_model;
-        float endian_bug;
         position_struct position;
 
         // Ports

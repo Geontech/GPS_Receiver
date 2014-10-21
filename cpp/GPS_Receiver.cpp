@@ -63,9 +63,11 @@ void GPS_Receiver_i::configure_position(
 		const position_struct* newValue) {
 	this->_gps_time_pos.position.valid = true;
 	position_struct actual = *newValue;
-	if (this->endian_bug != 1.0) {
+	if (newValue->endian_bug != 1.0) {
 		actual.latitude = byteswap(newValue->latitude);
 		actual.longitude = byteswap(newValue->longitude);
+		this->position.latitude = actual.latitude;
+		this->position.longitude = actual.longitude;
 	}
 	this->_gps_time_pos.position.lat = actual.latitude;
 	this->_gps_time_pos.position.lon = actual.longitude;

@@ -1,10 +1,10 @@
-c2dd76fc11d80b22cc5d7a1ef9249d8a  GPS_Receiver_base.cpp
+c55c3545d4940ca9ffba4e0953df8972  GPS_Receiver_base.cpp
 39eee990adf5eb753068172928405e43  main.cpp
 c99df9fa4ab0cd042eac42fcee6441c3  reconf
 8cf4c24aa7e0b427b24c410bc533c4ee  configure.ac
 6986307df7b63736c30d0e9c14d40544  Makefile.am
-da2bae3e39929f777f0c8bfd6c81337e  struct_props.h
-2d791af691a464c41ff898d621a1e0c4  GPS_Receiver_base.h
+153d4a490fae3d36549bb4aead69ac36  struct_props.h
+8a67e8d5beb027fe15afe31bac787007  GPS_Receiver_base.h
 936674262cb2a064a6de7f539d0b856f  port_impl.cpp
 2edeb4570ba55b42155b992f38587fb6  build.sh
 ba1a54568ca52538bca2fd68ffc0078b  port_impl.h

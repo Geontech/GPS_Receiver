@@ -101,15 +101,6 @@ void GPS_Receiver_base::loadProperties()
                 "eq",
                 "allocation,configure");
 
-    addProperty(endian_bug,
-                1.0,
-                "endian_bug",
-                "",
-                "readonly",
-                "",
-                "external",
-                "execparam");
-
     addProperty(position,
                 position_struct(),
                 "position",

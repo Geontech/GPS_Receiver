@@ -20,12 +20,12 @@
     <simple id="position::longitude" name="longitude" type="double">
       <value>0</value>
     </simple>
+    <simple id="endian_bug" mode="readwrite" type="double">
+      <description>Do not change from 1.0.  It helps other processors detect a CORBA bug with endianness.</description>
+      <value>1.0</value>
+      <kind kindtype="configure"/>
+      <action type="external"/>
+    </simple>
     <configurationkind kindtype="configure"/>
   </struct>
-  <simple id="endian_bug" mode="readonly" type="float">
-    <description>Do not change from 1.0.  It helps other processors detect a CORBA bug with endianness.</description>
-    <value>1.0</value>
-    <kind kindtype="execparam"/>
-    <action type="external"/>
-  </simple>
 </properties>
