@@ -14,63 +14,44 @@ PREPARE_LOGGING(GPS_Receiver_i)
 GPS_Receiver_i::GPS_Receiver_i(char *devMgr_ior, char *id, char *lbl, char *sftwrPrfl) :
     GPS_Receiver_base(devMgr_ior, id, lbl, sftwrPrfl)
 {
+	this->construct();
 }
 
 GPS_Receiver_i::GPS_Receiver_i(char *devMgr_ior, char *id, char *lbl, char *sftwrPrfl, char *compDev) :
     GPS_Receiver_base(devMgr_ior, id, lbl, sftwrPrfl, compDev)
 {
+	this->construct();
 }
 
 GPS_Receiver_i::GPS_Receiver_i(char *devMgr_ior, char *id, char *lbl, char *sftwrPrfl, CF::Properties capacities) :
     GPS_Receiver_base(devMgr_ior, id, lbl, sftwrPrfl, capacities)
 {
+	this->construct();
 }
 
 GPS_Receiver_i::GPS_Receiver_i(char *devMgr_ior, char *id, char *lbl, char *sftwrPrfl, CF::Properties capacities, char *compDev) :
     GPS_Receiver_base(devMgr_ior, id, lbl, sftwrPrfl, capacities, compDev)
 {
+	this->construct();
 }
 
 GPS_Receiver_i::~GPS_Receiver_i()
 {
+}
+
+void GPS_Receiver_i::construct() {
 	this->addPropertyChangeListener(
 			"position",
 			this,
 			&GPS_Receiver_i::configure_position);
 }
 
-void GPS_Receiver_i::construct() {
-
-}
-
-double byteswap (double d) {
-	double a;
-	unsigned char *dst = (unsigned char*)&a;
-	unsigned char *src = (unsigned char*)&d;
-	dst[0] = src[7];
-	dst[1] = src[6];
-	dst[2] = src[5];
-	dst[3] = src[4];
-	dst[4] = src[3];
-	dst[5] = src[2];
-	dst[6] = src[1];
-	dst[7] = src[0];
-	return a;
-}
-
 void GPS_Receiver_i::configure_position(
 		const position_struct* oldValue,
 		const position_struct* newValue) {
 	this->_gps_time_pos.position.valid = true;
-	position_struct actual = *newValue;
-	if (newValue->endian_bug != 1.0) {
-		actual.latitude = byteswap(newValue->latitude);
-		actual.longitude = byteswap(newValue->longitude);
-		this->position.latitude = actual.latitude;
-		this->position.longitude = actual.longitude;
-	}
-	this->_gps_time_pos.position.lat = actual.latitude;
-	this->_gps_time_pos.position.lon = actual.longitude;
+	this->_gps_time_pos.position.lat = newValue->latitude;
+	this->_gps_time_pos.position.lon = newValue->longitude;
 	this->_gps_info.satellite_count = 42;
 }
 
