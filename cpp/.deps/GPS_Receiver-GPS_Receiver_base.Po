@@ -1,5 +1,5 @@
-GPS_Receiver-GPS_Receiver_base.o: GPS_Receiver_base.cpp \
- GPS_Receiver_base.h /usr/include/boost/thread.hpp \
+gps_receiver-gps_receiver_base.o: gps_receiver_base.cpp \
+ gps_receiver_base.h /usr/include/boost/thread.hpp \
  /usr/include/boost/thread/thread.hpp \
  /usr/include/boost/thread/detail/platform.hpp \
  /usr/include/boost/config.hpp /usr/include/boost/config/user.hpp \
@@ -558,215 +558,77 @@ GPS_Receiver-GPS_Receiver_base.o: GPS_Receiver_base.cpp \
  /usr/include/COS/COS_sysdep.h /usr/include/COS/CosEventChannelAdmin.hh \
  /usr/include/COS/CosEventComm.hh \
  /usr/local/redhawk/core/include/ossie/Resource_impl.h \
- /usr/local/redhawk/core/include/ossie/Logging_impl.h \
- /usr/include/boost/make_shared.hpp \
- /usr/include/boost/smart_ptr/make_shared.hpp \
- /usr/local/redhawk/core/include/ossie/CF/LogInterfaces.h \
- /usr/local/redhawk/core/include/ossie/logging/rh_logger.h \
- /usr/include/values.h \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/float.h \
- /usr/include/boost/circular_buffer.hpp \
- /usr/include/boost/circular_buffer_fwd.hpp \
- /usr/include/boost/detail/iterator.hpp \
- /usr/include/boost/circular_buffer/debug.hpp \
- /usr/include/boost/circular_buffer/details.hpp \
- /usr/include/boost/circular_buffer/base.hpp \
- /usr/include/boost/call_traits.hpp \
- /usr/include/boost/detail/call_traits.hpp \
- /usr/include/boost/concept_check.hpp \
- /usr/include/boost/concept/assert.hpp \
- /usr/include/boost/concept/detail/general.hpp \
- /usr/include/boost/concept/detail/has_constraints.hpp \
- /usr/include/boost/type_traits/conversion_traits.hpp \
- /usr/include/boost/mpl/assert.hpp /usr/include/boost/mpl/aux_/yes_no.hpp \
- /usr/include/boost/mpl/aux_/config/arrays.hpp \
- /usr/include/boost/mpl/aux_/config/pp_counter.hpp \
- /usr/include/boost/concept/usage.hpp \
- /usr/include/boost/concept/detail/concept_def.hpp \
- /usr/include/boost/preprocessor/seq/for_each_i.hpp \
- /usr/include/boost/preprocessor/seq/enum.hpp \
- /usr/include/boost/concept/detail/concept_undef.hpp \
- /usr/include/boost/iterator/reverse_iterator.hpp \
- /usr/include/boost/iterator/iterator_adaptor.hpp \
- /usr/include/boost/iterator/iterator_categories.hpp \
- /usr/include/boost/iterator/detail/config_def.hpp \
- /usr/include/boost/mpl/eval_if.hpp /usr/include/boost/mpl/identity.hpp \
- /usr/include/boost/mpl/placeholders.hpp /usr/include/boost/mpl/arg.hpp \
- /usr/include/boost/mpl/arg_fwd.hpp \
- /usr/include/boost/mpl/aux_/na_assert.hpp \
- /usr/include/boost/mpl/aux_/arity_spec.hpp \
- /usr/include/boost/mpl/aux_/arg_typedef.hpp \
- /usr/include/boost/mpl/aux_/config/use_preprocessed.hpp \
- /usr/include/boost/mpl/aux_/include_preprocessed.hpp \
- /usr/include/boost/mpl/aux_/config/compiler.hpp \
- /usr/include/boost/preprocessor/stringize.hpp \
- /usr/include/boost/mpl/aux_/preprocessed/gcc/arg.hpp \
- /usr/include/boost/mpl/aux_/preprocessed/gcc/placeholders.hpp \
- /usr/include/boost/iterator/detail/config_undef.hpp \
- /usr/include/boost/iterator/iterator_facade.hpp \
- /usr/include/boost/iterator/interoperable.hpp \
- /usr/include/boost/mpl/or.hpp \
- /usr/include/boost/mpl/aux_/preprocessed/gcc/or.hpp \
- /usr/include/boost/iterator/iterator_traits.hpp \
- /usr/include/boost/iterator/detail/facade_iterator_category.hpp \
- /usr/include/boost/mpl/and.hpp \
- /usr/include/boost/mpl/aux_/preprocessed/gcc/and.hpp \
- /usr/include/boost/detail/indirect_traits.hpp \
- /usr/include/boost/type_traits/is_function.hpp \
- /usr/include/boost/type_traits/detail/false_result.hpp \
- /usr/include/boost/type_traits/detail/is_function_ptr_helper.hpp \
- /usr/include/boost/type_traits/remove_pointer.hpp \
- /usr/include/boost/iterator/detail/enable_if.hpp \
- /usr/include/boost/implicit_cast.hpp \
- /usr/include/boost/type_traits/add_const.hpp \
- /usr/include/boost/type_traits/add_pointer.hpp \
- /usr/include/boost/type_traits/remove_const.hpp \
- /usr/include/boost/mpl/always.hpp /usr/include/boost/mpl/apply.hpp \
- /usr/include/boost/mpl/apply_fwd.hpp \
- /usr/include/boost/mpl/aux_/preprocessed/gcc/apply_fwd.hpp \
- /usr/include/boost/mpl/apply_wrap.hpp \
- /usr/include/boost/mpl/aux_/has_apply.hpp \
- /usr/include/boost/mpl/has_xxx.hpp \
- /usr/include/boost/mpl/aux_/type_wrapper.hpp \
- /usr/include/boost/mpl/aux_/config/has_xxx.hpp \
- /usr/include/boost/mpl/aux_/config/msvc_typename.hpp \
- /usr/include/boost/mpl/aux_/config/has_apply.hpp \
- /usr/include/boost/mpl/aux_/msvc_never_true.hpp \
- /usr/include/boost/mpl/aux_/preprocessed/gcc/apply_wrap.hpp \
- /usr/include/boost/mpl/lambda.hpp /usr/include/boost/mpl/bind.hpp \
- /usr/include/boost/mpl/bind_fwd.hpp \
- /usr/include/boost/mpl/aux_/config/bind.hpp \
- /usr/include/boost/mpl/aux_/preprocessed/gcc/bind_fwd.hpp \
- /usr/include/boost/mpl/next.hpp /usr/include/boost/mpl/next_prior.hpp \
- /usr/include/boost/mpl/aux_/common_name_wknd.hpp \
- /usr/include/boost/mpl/protect.hpp \
- /usr/include/boost/mpl/aux_/preprocessed/gcc/bind.hpp \
- /usr/include/boost/mpl/aux_/full_lambda.hpp \
- /usr/include/boost/mpl/quote.hpp \
- /usr/include/boost/mpl/aux_/has_type.hpp \
- /usr/include/boost/mpl/aux_/config/bcc.hpp \
- /usr/include/boost/mpl/aux_/preprocessed/gcc/quote.hpp \
- /usr/include/boost/mpl/aux_/template_arity.hpp \
- /usr/include/boost/mpl/aux_/preprocessed/gcc/template_arity.hpp \
- /usr/include/boost/mpl/aux_/preprocessed/gcc/full_lambda.hpp \
- /usr/include/boost/mpl/aux_/preprocessed/gcc/apply.hpp \
- /usr/include/boost/type_traits/is_stateless.hpp \
- /usr/include/boost/type_traits/has_trivial_constructor.hpp \
- /usr/include/boost/type_traits/is_empty.hpp \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/deque \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_deque.h \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/deque.tcc \
- /usr/include/boost/circular_buffer/space_optimized.hpp \
- /usr/local/redhawk/core/include/ossie/logging/loghelpers.h \
- /usr/local/redhawk/core/include/ossie/EventChannelSupport.h \
- /usr/include/COS/CosLifeCycle.hh \
- /usr/local/redhawk/core/include/ossie/CorbaUtils.h \
- /usr/local/redhawk/core/include/ossie/CorbaSequence.h \
- /usr/include/boost/type_traits.hpp \
- /usr/include/boost/type_traits/add_cv.hpp \
- /usr/include/boost/type_traits/add_volatile.hpp \
- /usr/include/boost/type_traits/has_nothrow_assign.hpp \
- /usr/include/boost/type_traits/has_trivial_assign.hpp \
- /usr/include/boost/type_traits/has_nothrow_constructor.hpp \
- /usr/include/boost/type_traits/has_nothrow_destructor.hpp \
- /usr/include/boost/type_traits/has_virtual_destructor.hpp \
- /usr/include/boost/type_traits/is_signed.hpp \
- /usr/include/boost/type_traits/is_unsigned.hpp \
- /usr/include/boost/type_traits/is_compound.hpp \
- /usr/include/boost/type_traits/is_floating_point.hpp \
- /usr/include/boost/type_traits/is_member_object_pointer.hpp \
- /usr/include/boost/type_traits/is_object.hpp \
- /usr/include/boost/type_traits/is_polymorphic.hpp \
- /usr/include/boost/type_traits/rank.hpp \
- /usr/include/boost/type_traits/extent.hpp \
- /usr/include/boost/type_traits/remove_bounds.hpp \
- /usr/include/boost/type_traits/remove_extent.hpp \
- /usr/include/boost/type_traits/remove_all_extents.hpp \
- /usr/include/boost/type_traits/remove_volatile.hpp \
- /usr/include/boost/type_traits/function_traits.hpp \
- /usr/include/boost/type_traits/aligned_storage.hpp \
- /usr/include/boost/aligned_storage.hpp \
- /usr/include/boost/type_traits/floating_point_promotion.hpp \
- /usr/include/boost/type_traits/integral_promotion.hpp \
- /usr/include/boost/type_traits/promote.hpp \
- /usr/include/boost/type_traits/make_unsigned.hpp \
- /usr/include/boost/type_traits/make_signed.hpp \
- /usr/include/boost/type_traits/decay.hpp \
- /usr/include/boost/type_traits/is_complex.hpp \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/complex \
- /usr/local/redhawk/core/include/ossie/debug.h \
- /usr/local/redhawk/core/include/ossie/CF/StandardEvent.h \
  /usr/local/redhawk/core/include/ossie/Port_impl.h \
  /usr/local/redhawk/core/include/ossie/CF/cf.h \
  /usr/local/redhawk/core/include/ossie/LifeCycle_impl.h \
  /usr/local/redhawk/core/include/ossie/PortSupplier_impl.h \
- /usr/local/redhawk/core/include/ossie/debug.h \
  /usr/local/redhawk/core/include/ossie/PropertySet_impl.h \
+ /usr/local/redhawk/core/include/ossie/debug.h \
+ /usr/include/log4cxx/logger.h \
+ /usr/include/log4cxx/helpers/appenderattachableimpl.h \
+ /usr/include/log4cxx/spi/appenderattachable.h \
+ /usr/include/log4cxx/logstring.h /usr/include/log4cxx/log4cxx.h \
+ /usr/include/log4cxx/helpers/transcoder.h \
+ /usr/include/log4cxx/helpers/objectptr.h \
+ /usr/include/log4cxx/helpers/object.h \
+ /usr/include/log4cxx/helpers/class.h \
+ /usr/include/log4cxx/helpers/classregistration.h \
+ /usr/include/log4cxx/appender.h /usr/include/log4cxx/spi/optionhandler.h \
+ /usr/include/log4cxx/helpers/objectimpl.h \
+ /usr/include/log4cxx/helpers/mutex.h /usr/include/log4cxx/helpers/pool.h \
+ /usr/include/log4cxx/level.h \
+ /usr/include/log4cxx/spi/location/locationinfo.h \
+ /usr/include/log4cxx/helpers/objectoutputstream.h \
+ /usr/include/log4cxx/mdc.h /usr/include/log4cxx/helpers/outputstream.h \
+ /usr/include/log4cxx/helpers/charsetencoder.h \
+ /usr/include/log4cxx/helpers/resourcebundle.h \
+ /usr/include/log4cxx/helpers/messagebuffer.h \
+ /usr/include/log4cxx/spi/loggerrepository.h \
+ /usr/include/log4cxx/spi/loggerfactory.h \
+ /usr/include/log4cxx/spi/hierarchyeventlistener.h \
+ /usr/include/log4cxx/propertyconfigurator.h \
+ /usr/include/log4cxx/spi/configurator.h /usr/include/log4cxx/file.h \
+ /usr/include/log4cxx/patternlayout.h /usr/include/log4cxx/layout.h \
+ /usr/include/log4cxx/spi/loggingevent.h \
+ /usr/include/log4cxx/pattern/loggingeventpatternconverter.h \
+ /usr/include/log4cxx/pattern/patternconverter.h \
+ /usr/include/log4cxx/pattern/formattinginfo.h \
+ /usr/include/log4cxx/pattern/patternparser.h \
+ /usr/include/log4cxx/consoleappender.h \
+ /usr/include/log4cxx/writerappender.h \
+ /usr/include/log4cxx/appenderskeleton.h \
+ /usr/include/log4cxx/spi/errorhandler.h \
+ /usr/include/log4cxx/helpers/exception.h \
+ /usr/include/log4cxx/spi/filter.h \
+ /usr/include/log4cxx/helpers/outputstreamwriter.h \
+ /usr/include/log4cxx/helpers/writer.h /usr/include/log4cxx/logmanager.h \
+ /usr/include/log4cxx/spi/repositoryselector.h \
  /usr/local/redhawk/core/include/ossie/PropertyInterface.h \
- /usr/local/redhawk/core/include/ossie/AnyUtils.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/complex \
+ /usr/local/redhawk/core/include/ossie/CorbaUtils.h \
  /usr/local/redhawk/core/include/ossie/Port_impl.h \
  /usr/local/redhawk/core/include/ossie/ComplexProperties.h \
- /usr/local/redhawk/core/include/ossie/internal/equals.h \
- /usr/local/redhawk/core/include/ossie/type_traits.h \
- /usr/local/redhawk/core/include/ossie/exceptions.h \
  /usr/local/redhawk/core/include/ossie/CF/ExtendedEvent.h \
  /usr/local/redhawk/core/include/ossie/CF/cf.h \
  /usr/local/redhawk/core/include/ossie/TestableObject_impl.h \
  /usr/local/redhawk/core/include/ossie/ossieSupport.h \
- /usr/local/redhawk/core/include/ossie/prop_helpers.h \
- /usr/include/signal.h /usr/include/bits/signum.h \
- /usr/include/bits/siginfo.h /usr/include/bits/sigaction.h \
- /usr/include/bits/sigcontext.h /usr/include/bits/sigstack.h \
- /usr/include/sys/ucontext.h /usr/include/bits/sigthread.h \
- /usr/local/redhawk/core/include/ossie/ThreadedComponent.h \
- /usr/local/redhawk/core/include/frontend/frontend.h \
- /usr/local/redhawk/core/include/frontend/fe_gps_port_impl.h \
- /usr/local/redhawk/core/include/frontend/fe_port_impl.h \
+ /usr/local/redhawk/core/include/ossie/CF/StandardEvent.h \
+ /usr/local/redhawk/core/include/ossie/debug.h /usr/include/signal.h \
+ /usr/include/bits/signum.h /usr/include/bits/siginfo.h \
+ /usr/include/bits/sigaction.h /usr/include/bits/sigcontext.h \
+ /usr/include/bits/sigstack.h /usr/include/sys/ucontext.h \
+ /usr/include/bits/sigthread.h port_impl.h \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/queue \
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/deque \
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_deque.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/deque.tcc \
  /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_queue.h \
- /usr/local/redhawk/core/include/ossie/CF/QueryablePort.h \
- /usr/local/redhawk/core/include/redhawk/FRONTEND/RFInfo.h \
- /usr/local/redhawk/core/include/redhawk/FRONTEND/Frontend.h \
  /usr/local/redhawk/core/include/redhawk/FRONTEND/GPS.h \
  /usr/local/redhawk/core/include/ossie/CF/PortTypes.h \
  /usr/local/redhawk/core/include/ossie/BULKIO/bulkioDataTypes.h \
- /usr/local/redhawk/core/include/redhawk/FRONTEND/NavigationData.h \
- /usr/local/redhawk/core/include/frontend/fe_types.h \
- /usr/local/redhawk/core/include/frontend/fe_navdata_port_impl.h \
- /usr/local/redhawk/core/include/frontend/fe_rfinfo_port_impl.h \
- /usr/local/redhawk/core/include/frontend/fe_tuner_device.h \
- /usr/include/uuid/uuid.h /usr/local/redhawk/core/include/bulkio/bulkio.h \
- /usr/local/redhawk/core/include/bulkio/BULKIO_Interfaces.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_dataChar.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_runtimeStats.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_updateSRI.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_dataOctet.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_dataShort.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_dataUshort.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_dataLong.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_dataUlong.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_dataLongLong.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_dataUlongLong.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_dataFloat.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_dataDouble.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_dataFile.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_dataXML.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_dataSDDS.h \
- /usr/local/redhawk/core/include/ossie/BULKIO/bio_dataVITA49.h \
- /usr/local/redhawk/core/include/bulkio/bulkio_base.h \
- /usr/local/redhawk/core/include/bulkio/bulkio_traits.h \
- /usr/local/redhawk/core/include/bulkio/bulkio_in_port.h \
- /usr/local/redhawk/core/include/bulkio/bulkio_out_port.h \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/set \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_set.h \
- /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_multiset.h \
- /usr/local/redhawk/core/include/bulkio/bulkio_attachable_base.h \
- /usr/local/redhawk/core/include/frontend/fe_tuner_struct_props.h \
- /usr/local/redhawk/core/include/frontend/fe_tuner_port_impl.h \
- /usr/local/redhawk/core/include/redhawk/FRONTEND/TunerControl.h \
- /usr/local/redhawk/core/include/frontend/fe_rfsource_port_impl.h
+ /usr/local/redhawk/core/include/redhawk/FRONTEND/Frontend.h
 
-GPS_Receiver_base.h:
+gps_receiver_base.h:
 
 /usr/include/boost/thread.hpp:
 
@@ -2040,294 +1902,6 @@ GPS_Receiver_base.h:
 
 /usr/local/redhawk/core/include/ossie/Resource_impl.h:
 
-/usr/local/redhawk/core/include/ossie/Logging_impl.h:
-
-/usr/include/boost/make_shared.hpp:
-
-/usr/include/boost/smart_ptr/make_shared.hpp:
-
-/usr/local/redhawk/core/include/ossie/CF/LogInterfaces.h:
-
-/usr/local/redhawk/core/include/ossie/logging/rh_logger.h:
-
-/usr/include/values.h:
-
-/usr/lib/gcc/x86_64-redhat-linux/4.4.7/include/float.h:
-
-/usr/include/boost/circular_buffer.hpp:
-
-/usr/include/boost/circular_buffer_fwd.hpp:
-
-/usr/include/boost/detail/iterator.hpp:
-
-/usr/include/boost/circular_buffer/debug.hpp:
-
-/usr/include/boost/circular_buffer/details.hpp:
-
-/usr/include/boost/circular_buffer/base.hpp:
-
-/usr/include/boost/call_traits.hpp:
-
-/usr/include/boost/detail/call_traits.hpp:
-
-/usr/include/boost/concept_check.hpp:
-
-/usr/include/boost/concept/assert.hpp:
-
-/usr/include/boost/concept/detail/general.hpp:
-
-/usr/include/boost/concept/detail/has_constraints.hpp:
-
-/usr/include/boost/type_traits/conversion_traits.hpp:
-
-/usr/include/boost/mpl/assert.hpp:
-
-/usr/include/boost/mpl/aux_/yes_no.hpp:
-
-/usr/include/boost/mpl/aux_/config/arrays.hpp:
-
-/usr/include/boost/mpl/aux_/config/pp_counter.hpp:
-
-/usr/include/boost/concept/usage.hpp:
-
-/usr/include/boost/concept/detail/concept_def.hpp:
-
-/usr/include/boost/preprocessor/seq/for_each_i.hpp:
-
-/usr/include/boost/preprocessor/seq/enum.hpp:
-
-/usr/include/boost/concept/detail/concept_undef.hpp:
-
-/usr/include/boost/iterator/reverse_iterator.hpp:
-
-/usr/include/boost/iterator/iterator_adaptor.hpp:
-
-/usr/include/boost/iterator/iterator_categories.hpp:
-
-/usr/include/boost/iterator/detail/config_def.hpp:
-
-/usr/include/boost/mpl/eval_if.hpp:
-
-/usr/include/boost/mpl/identity.hpp:
-
-/usr/include/boost/mpl/placeholders.hpp:
-
-/usr/include/boost/mpl/arg.hpp:
-
-/usr/include/boost/mpl/arg_fwd.hpp:
-
-/usr/include/boost/mpl/aux_/na_assert.hpp:
-
-/usr/include/boost/mpl/aux_/arity_spec.hpp:
-
-/usr/include/boost/mpl/aux_/arg_typedef.hpp:
-
-/usr/include/boost/mpl/aux_/config/use_preprocessed.hpp:
-
-/usr/include/boost/mpl/aux_/include_preprocessed.hpp:
-
-/usr/include/boost/mpl/aux_/config/compiler.hpp:
-
-/usr/include/boost/preprocessor/stringize.hpp:
-
-/usr/include/boost/mpl/aux_/preprocessed/gcc/arg.hpp:
-
-/usr/include/boost/mpl/aux_/preprocessed/gcc/placeholders.hpp:
-
-/usr/include/boost/iterator/detail/config_undef.hpp:
-
-/usr/include/boost/iterator/iterator_facade.hpp:
-
-/usr/include/boost/iterator/interoperable.hpp:
-
-/usr/include/boost/mpl/or.hpp:
-
-/usr/include/boost/mpl/aux_/preprocessed/gcc/or.hpp:
-
-/usr/include/boost/iterator/iterator_traits.hpp:
-
-/usr/include/boost/iterator/detail/facade_iterator_category.hpp:
-
-/usr/include/boost/mpl/and.hpp:
-
-/usr/include/boost/mpl/aux_/preprocessed/gcc/and.hpp:
-
-/usr/include/boost/detail/indirect_traits.hpp:
-
-/usr/include/boost/type_traits/is_function.hpp:
-
-/usr/include/boost/type_traits/detail/false_result.hpp:
-
-/usr/include/boost/type_traits/detail/is_function_ptr_helper.hpp:
-
-/usr/include/boost/type_traits/remove_pointer.hpp:
-
-/usr/include/boost/iterator/detail/enable_if.hpp:
-
-/usr/include/boost/implicit_cast.hpp:
-
-/usr/include/boost/type_traits/add_const.hpp:
-
-/usr/include/boost/type_traits/add_pointer.hpp:
-
-/usr/include/boost/type_traits/remove_const.hpp:
-
-/usr/include/boost/mpl/always.hpp:
-
-/usr/include/boost/mpl/apply.hpp:
-
-/usr/include/boost/mpl/apply_fwd.hpp:
-
-/usr/include/boost/mpl/aux_/preprocessed/gcc/apply_fwd.hpp:
-
-/usr/include/boost/mpl/apply_wrap.hpp:
-
-/usr/include/boost/mpl/aux_/has_apply.hpp:
-
-/usr/include/boost/mpl/has_xxx.hpp:
-
-/usr/include/boost/mpl/aux_/type_wrapper.hpp:
-
-/usr/include/boost/mpl/aux_/config/has_xxx.hpp:
-
-/usr/include/boost/mpl/aux_/config/msvc_typename.hpp:
-
-/usr/include/boost/mpl/aux_/config/has_apply.hpp:
-
-/usr/include/boost/mpl/aux_/msvc_never_true.hpp:
-
-/usr/include/boost/mpl/aux_/preprocessed/gcc/apply_wrap.hpp:
-
-/usr/include/boost/mpl/lambda.hpp:
-
-/usr/include/boost/mpl/bind.hpp:
-
-/usr/include/boost/mpl/bind_fwd.hpp:
-
-/usr/include/boost/mpl/aux_/config/bind.hpp:
-
-/usr/include/boost/mpl/aux_/preprocessed/gcc/bind_fwd.hpp:
-
-/usr/include/boost/mpl/next.hpp:
-
-/usr/include/boost/mpl/next_prior.hpp:
-
-/usr/include/boost/mpl/aux_/common_name_wknd.hpp:
-
-/usr/include/boost/mpl/protect.hpp:
-
-/usr/include/boost/mpl/aux_/preprocessed/gcc/bind.hpp:
-
-/usr/include/boost/mpl/aux_/full_lambda.hpp:
-
-/usr/include/boost/mpl/quote.hpp:
-
-/usr/include/boost/mpl/aux_/has_type.hpp:
-
-/usr/include/boost/mpl/aux_/config/bcc.hpp:
-
-/usr/include/boost/mpl/aux_/preprocessed/gcc/quote.hpp:
-
-/usr/include/boost/mpl/aux_/template_arity.hpp:
-
-/usr/include/boost/mpl/aux_/preprocessed/gcc/template_arity.hpp:
-
-/usr/include/boost/mpl/aux_/preprocessed/gcc/full_lambda.hpp:
-
-/usr/include/boost/mpl/aux_/preprocessed/gcc/apply.hpp:
-
-/usr/include/boost/type_traits/is_stateless.hpp:
-
-/usr/include/boost/type_traits/has_trivial_constructor.hpp:
-
-/usr/include/boost/type_traits/is_empty.hpp:
-
-/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/deque:
-
-/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_deque.h:
-
-/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/deque.tcc:
-
-/usr/include/boost/circular_buffer/space_optimized.hpp:
-
-/usr/local/redhawk/core/include/ossie/logging/loghelpers.h:
-
-/usr/local/redhawk/core/include/ossie/EventChannelSupport.h:
-
-/usr/include/COS/CosLifeCycle.hh:
-
-/usr/local/redhawk/core/include/ossie/CorbaUtils.h:
-
-/usr/local/redhawk/core/include/ossie/CorbaSequence.h:
-
-/usr/include/boost/type_traits.hpp:
-
-/usr/include/boost/type_traits/add_cv.hpp:
-
-/usr/include/boost/type_traits/add_volatile.hpp:
-
-/usr/include/boost/type_traits/has_nothrow_assign.hpp:
-
-/usr/include/boost/type_traits/has_trivial_assign.hpp:
-
-/usr/include/boost/type_traits/has_nothrow_constructor.hpp:
-
-/usr/include/boost/type_traits/has_nothrow_destructor.hpp:
-
-/usr/include/boost/type_traits/has_virtual_destructor.hpp:
-
-/usr/include/boost/type_traits/is_signed.hpp:
-
-/usr/include/boost/type_traits/is_unsigned.hpp:
-
-/usr/include/boost/type_traits/is_compound.hpp:
-
-/usr/include/boost/type_traits/is_floating_point.hpp:
-
-/usr/include/boost/type_traits/is_member_object_pointer.hpp:
-
-/usr/include/boost/type_traits/is_object.hpp:
-
-/usr/include/boost/type_traits/is_polymorphic.hpp:
-
-/usr/include/boost/type_traits/rank.hpp:
-
-/usr/include/boost/type_traits/extent.hpp:
-
-/usr/include/boost/type_traits/remove_bounds.hpp:
-
-/usr/include/boost/type_traits/remove_extent.hpp:
-
-/usr/include/boost/type_traits/remove_all_extents.hpp:
-
-/usr/include/boost/type_traits/remove_volatile.hpp:
-
-/usr/include/boost/type_traits/function_traits.hpp:
-
-/usr/include/boost/type_traits/aligned_storage.hpp:
-
-/usr/include/boost/aligned_storage.hpp:
-
-/usr/include/boost/type_traits/floating_point_promotion.hpp:
-
-/usr/include/boost/type_traits/integral_promotion.hpp:
-
-/usr/include/boost/type_traits/promote.hpp:
-
-/usr/include/boost/type_traits/make_unsigned.hpp:
-
-/usr/include/boost/type_traits/make_signed.hpp:
-
-/usr/include/boost/type_traits/decay.hpp:
-
-/usr/include/boost/type_traits/is_complex.hpp:
-
-/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/complex:
-
-/usr/local/redhawk/core/include/ossie/debug.h:
-
-/usr/local/redhawk/core/include/ossie/CF/StandardEvent.h:
-
 /usr/local/redhawk/core/include/ossie/Port_impl.h:
 
 /usr/local/redhawk/core/include/ossie/CF/cf.h:
@@ -2336,23 +1910,111 @@ GPS_Receiver_base.h:
 
 /usr/local/redhawk/core/include/ossie/PortSupplier_impl.h:
 
+/usr/local/redhawk/core/include/ossie/PropertySet_impl.h:
+
 /usr/local/redhawk/core/include/ossie/debug.h:
 
-/usr/local/redhawk/core/include/ossie/PropertySet_impl.h:
+/usr/include/log4cxx/logger.h:
+
+/usr/include/log4cxx/helpers/appenderattachableimpl.h:
+
+/usr/include/log4cxx/spi/appenderattachable.h:
+
+/usr/include/log4cxx/logstring.h:
+
+/usr/include/log4cxx/log4cxx.h:
+
+/usr/include/log4cxx/helpers/transcoder.h:
+
+/usr/include/log4cxx/helpers/objectptr.h:
+
+/usr/include/log4cxx/helpers/object.h:
+
+/usr/include/log4cxx/helpers/class.h:
+
+/usr/include/log4cxx/helpers/classregistration.h:
+
+/usr/include/log4cxx/appender.h:
+
+/usr/include/log4cxx/spi/optionhandler.h:
+
+/usr/include/log4cxx/helpers/objectimpl.h:
+
+/usr/include/log4cxx/helpers/mutex.h:
+
+/usr/include/log4cxx/helpers/pool.h:
+
+/usr/include/log4cxx/level.h:
+
+/usr/include/log4cxx/spi/location/locationinfo.h:
+
+/usr/include/log4cxx/helpers/objectoutputstream.h:
+
+/usr/include/log4cxx/mdc.h:
+
+/usr/include/log4cxx/helpers/outputstream.h:
+
+/usr/include/log4cxx/helpers/charsetencoder.h:
+
+/usr/include/log4cxx/helpers/resourcebundle.h:
+
+/usr/include/log4cxx/helpers/messagebuffer.h:
+
+/usr/include/log4cxx/spi/loggerrepository.h:
+
+/usr/include/log4cxx/spi/loggerfactory.h:
+
+/usr/include/log4cxx/spi/hierarchyeventlistener.h:
+
+/usr/include/log4cxx/propertyconfigurator.h:
+
+/usr/include/log4cxx/spi/configurator.h:
+
+/usr/include/log4cxx/file.h:
+
+/usr/include/log4cxx/patternlayout.h:
+
+/usr/include/log4cxx/layout.h:
+
+/usr/include/log4cxx/spi/loggingevent.h:
+
+/usr/include/log4cxx/pattern/loggingeventpatternconverter.h:
+
+/usr/include/log4cxx/pattern/patternconverter.h:
+
+/usr/include/log4cxx/pattern/formattinginfo.h:
+
+/usr/include/log4cxx/pattern/patternparser.h:
+
+/usr/include/log4cxx/consoleappender.h:
+
+/usr/include/log4cxx/writerappender.h:
+
+/usr/include/log4cxx/appenderskeleton.h:
+
+/usr/include/log4cxx/spi/errorhandler.h:
+
+/usr/include/log4cxx/helpers/exception.h:
+
+/usr/include/log4cxx/spi/filter.h:
+
+/usr/include/log4cxx/helpers/outputstreamwriter.h:
+
+/usr/include/log4cxx/helpers/writer.h:
+
+/usr/include/log4cxx/logmanager.h:
+
+/usr/include/log4cxx/spi/repositoryselector.h:
 
 /usr/local/redhawk/core/include/ossie/PropertyInterface.h:
 
-/usr/local/redhawk/core/include/ossie/AnyUtils.h:
+/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/complex:
+
+/usr/local/redhawk/core/include/ossie/CorbaUtils.h:
 
 /usr/local/redhawk/core/include/ossie/Port_impl.h:
 
 /usr/local/redhawk/core/include/ossie/ComplexProperties.h:
-
-/usr/local/redhawk/core/include/ossie/internal/equals.h:
-
-/usr/local/redhawk/core/include/ossie/type_traits.h:
-
-/usr/local/redhawk/core/include/ossie/exceptions.h:
 
 /usr/local/redhawk/core/include/ossie/CF/ExtendedEvent.h:
 
@@ -2362,7 +2024,9 @@ GPS_Receiver_base.h:
 
 /usr/local/redhawk/core/include/ossie/ossieSupport.h:
 
-/usr/local/redhawk/core/include/ossie/prop_helpers.h:
+/usr/local/redhawk/core/include/ossie/CF/StandardEvent.h:
+
+/usr/local/redhawk/core/include/ossie/debug.h:
 
 /usr/include/signal.h:
 
@@ -2380,23 +2044,17 @@ GPS_Receiver_base.h:
 
 /usr/include/bits/sigthread.h:
 
-/usr/local/redhawk/core/include/ossie/ThreadedComponent.h:
-
-/usr/local/redhawk/core/include/frontend/frontend.h:
-
-/usr/local/redhawk/core/include/frontend/fe_gps_port_impl.h:
-
-/usr/local/redhawk/core/include/frontend/fe_port_impl.h:
+port_impl.h:
 
 /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/queue:
 
+/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/deque:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_deque.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/deque.tcc:
+
 /usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_queue.h:
-
-/usr/local/redhawk/core/include/ossie/CF/QueryablePort.h:
-
-/usr/local/redhawk/core/include/redhawk/FRONTEND/RFInfo.h:
-
-/usr/local/redhawk/core/include/redhawk/FRONTEND/Frontend.h:
 
 /usr/local/redhawk/core/include/redhawk/FRONTEND/GPS.h:
 
@@ -2404,74 +2062,4 @@ GPS_Receiver_base.h:
 
 /usr/local/redhawk/core/include/ossie/BULKIO/bulkioDataTypes.h:
 
-/usr/local/redhawk/core/include/redhawk/FRONTEND/NavigationData.h:
-
-/usr/local/redhawk/core/include/frontend/fe_types.h:
-
-/usr/local/redhawk/core/include/frontend/fe_navdata_port_impl.h:
-
-/usr/local/redhawk/core/include/frontend/fe_rfinfo_port_impl.h:
-
-/usr/local/redhawk/core/include/frontend/fe_tuner_device.h:
-
-/usr/include/uuid/uuid.h:
-
-/usr/local/redhawk/core/include/bulkio/bulkio.h:
-
-/usr/local/redhawk/core/include/bulkio/BULKIO_Interfaces.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_dataChar.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_runtimeStats.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_updateSRI.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_dataOctet.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_dataShort.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_dataUshort.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_dataLong.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_dataUlong.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_dataLongLong.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_dataUlongLong.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_dataFloat.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_dataDouble.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_dataFile.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_dataXML.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_dataSDDS.h:
-
-/usr/local/redhawk/core/include/ossie/BULKIO/bio_dataVITA49.h:
-
-/usr/local/redhawk/core/include/bulkio/bulkio_base.h:
-
-/usr/local/redhawk/core/include/bulkio/bulkio_traits.h:
-
-/usr/local/redhawk/core/include/bulkio/bulkio_in_port.h:
-
-/usr/local/redhawk/core/include/bulkio/bulkio_out_port.h:
-
-/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/set:
-
-/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_set.h:
-
-/usr/lib/gcc/x86_64-redhat-linux/4.4.7/../../../../include/c++/4.4.7/bits/stl_multiset.h:
-
-/usr/local/redhawk/core/include/bulkio/bulkio_attachable_base.h:
-
-/usr/local/redhawk/core/include/frontend/fe_tuner_struct_props.h:
-
-/usr/local/redhawk/core/include/frontend/fe_tuner_port_impl.h:
-
-/usr/local/redhawk/core/include/redhawk/FRONTEND/TunerControl.h:
-
-/usr/local/redhawk/core/include/frontend/fe_rfsource_port_impl.h:
+/usr/local/redhawk/core/include/redhawk/FRONTEND/Frontend.h:

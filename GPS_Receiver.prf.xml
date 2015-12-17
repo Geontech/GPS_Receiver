@@ -3,19 +3,26 @@
 <properties>
   <simple id="DCE:cdc5ee18-7ceb-4ae6-bf4c-31f983179b4d" mode="readonly" name="device_kind" type="string">
     <description>This specifies the device kind</description>
+    <value>GPS</value>
     <kind kindtype="configure"/>
     <kind kindtype="allocation"/>
     <action type="eq"/>
   </simple>
   <simple id="DCE:0f99b2e4-9903-4631-9846-ff349d18ecfb" mode="readonly" name="device_model" type="string">
     <description> This specifies the specific device</description>
+    <value>BU-353S4</value>
     <kind kindtype="configure"/>
     <kind kindtype="allocation"/>
     <action type="eq"/>
   </simple>
+  <simple id="stream_id" mode="readwrite" type="string">
+    <value>gps_stream</value>
+    <kind kindtype="configure"/>
+    <action type="external"/>
+  </simple>
   <simple id="serial_port" mode="readwrite" type="string">
     <value>/dev/ttyUSB0</value>
-    <kind kindtype="configure"/>
+    <kind kindtype="execparam"/>
     <action type="external"/>
   </simple>
 </properties>

@@ -35,7 +35,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = x86_64-unknown-linux-gnu
 host_triplet = x86_64-unknown-linux-gnu
-bin_PROGRAMS = GPS_Receiver$(EXEEXT)
+bin_PROGRAMS = gps_receiver$(EXEEXT)
 DIST_COMMON = $(am__configure_deps) $(dist_xml_DATA) \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.am.ide \
 	$(srcdir)/Makefile.in $(top_srcdir)/configure config.guess \
@@ -53,54 +53,32 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(xmldir)"
 PROGRAMS = $(bin_PROGRAMS)
-am__objects_1 = GPS_Receiver-GPS_Receiver.$(OBJEXT) \
-	GPS_Receiver-GPS_Receiver_base.$(OBJEXT) \
-	GPS_Receiver-main.$(OBJEXT)
-am_GPS_Receiver_OBJECTS = $(am__objects_1)
-GPS_Receiver_OBJECTS = $(am_GPS_Receiver_OBJECTS)
+am__objects_1 = gps_receiver-gps_receiver.$(OBJEXT) \
+	gps_receiver-gps_receiver_base.$(OBJEXT) \
+	gps_receiver-main.$(OBJEXT) gps_receiver-port_impl.$(OBJEXT)
+am_gps_receiver_OBJECTS = $(am__objects_1)
+gps_receiver_OBJECTS = $(am_gps_receiver_OBJECTS)
 am__DEPENDENCIES_1 =
-GPS_Receiver_DEPENDENCIES = $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
+gps_receiver_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(redhawk_LDADD_auto)
-GPS_Receiver_LINK = $(CXXLD) $(GPS_Receiver_CXXFLAGS) $(CXXFLAGS) \
-	$(GPS_Receiver_LDFLAGS) $(LDFLAGS) -o $@
+gps_receiver_LINK = $(CXXLD) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) \
+	$(gps_receiver_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = 
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
-AM_V_lt = $(am__v_lt_$(V))
-am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
-am__v_lt_0 = --silent
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
-AM_V_CXX = $(am__v_CXX_$(V))
-am__v_CXX_ = $(am__v_CXX_$(AM_DEFAULT_VERBOSITY))
-am__v_CXX_0 = @echo "  CXX   " $@;
-AM_V_at = $(am__v_at_$(V))
-am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))
-am__v_at_0 = @
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-AM_V_CXXLD = $(am__v_CXXLD_$(V))
-am__v_CXXLD_ = $(am__v_CXXLD_$(AM_DEFAULT_VERBOSITY))
-am__v_CXXLD_0 = @echo "  CXXLD " $@;
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-AM_V_CC = $(am__v_CC_$(V))
-am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))
-am__v_CC_0 = @echo "  CC    " $@;
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-AM_V_CCLD = $(am__v_CCLD_$(V))
-am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
-am__v_CCLD_0 = @echo "  CCLD  " $@;
-AM_V_GEN = $(am__v_GEN_$(V))
-am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
-am__v_GEN_0 = @echo "  GEN   " $@;
-SOURCES = $(GPS_Receiver_SOURCES)
-DIST_SOURCES = $(GPS_Receiver_SOURCES)
+SOURCES = $(gps_receiver_SOURCES)
+DIST_SOURCES = $(gps_receiver_SOURCES)
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
     $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
@@ -136,17 +114,14 @@ DIST_ARCHIVES = $(distdir).tar.gz
 GZIP_ENV = --best
 distuninstallcheck_listfiles = find . -type f -print
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/thomas/Documents/redhawk-workspace/GPS_Receiver/cpp/missing --run aclocal-1.11
-AMTAR = ${SHELL} /home/thomas/Documents/redhawk-workspace/GPS_Receiver/cpp/missing --run tar
-AM_DEFAULT_VERBOSITY = 0
-AUTOCONF = ${SHELL} /home/thomas/Documents/redhawk-workspace/GPS_Receiver/cpp/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/thomas/Documents/redhawk-workspace/GPS_Receiver/cpp/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/thomas/Documents/redhawk-workspace/GPS_Receiver/cpp/missing --run automake-1.11
+ACLOCAL = ${SHELL} /home/redhawkdev/Documents/apgRasPi/raspi/src/gps_receiver/cpp/missing --run aclocal-1.11
+AMTAR = ${SHELL} /home/redhawkdev/Documents/apgRasPi/raspi/src/gps_receiver/cpp/missing --run tar
+AUTOCONF = ${SHELL} /home/redhawkdev/Documents/apgRasPi/raspi/src/gps_receiver/cpp/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/redhawkdev/Documents/apgRasPi/raspi/src/gps_receiver/cpp/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/redhawkdev/Documents/apgRasPi/raspi/src/gps_receiver/cpp/missing --run automake-1.11
 AWK = gawk
 BOOST_CPPFLAGS = -pthread -I/usr/include
 BOOST_LDFLAGS = -L/usr/lib64
-BOOST_REGEX_LIB = -lboost_regex-mt
-BOOST_SYSTEM_LIB = -lboost_system
 BOOST_THREAD_LIB = -lboost_thread-mt
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -157,7 +132,7 @@ CXX = g++
 CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -g -O2
 CYGPATH_W = echo
-DEFS = -DPACKAGE_NAME=\"GPS_Receiver\" -DPACKAGE_TARNAME=\"gps_receiver\" -DPACKAGE_VERSION=\"1.0.0\" -DPACKAGE_STRING=\"GPS_Receiver\ 1.0.0\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE=\"gps_receiver\" -DVERSION=\"1.0.0\" -DHAVE_OMNIORB4=1 -DHAVE_LOG4CXX=1 -DRH_LOGGER=1 -DHAVE_BOOST=1 -DHAVE_BOOST_SYSTEM=1 -DHAVE_BOOST_THREAD=1 -DHAVE_BOOST_REGEX=1
+DEFS = -DPACKAGE_NAME=\"gps_receiver\" -DPACKAGE_TARNAME=\"gps_receiver\" -DPACKAGE_VERSION=\"1.0.0\" -DPACKAGE_STRING=\"gps_receiver\ 1.0.0\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE=\"gps_receiver\" -DVERSION=\"1.0.0\" -DHAVE_OMNIORB4=1 -DHAVE_LOG4CXX=1 -DHAVE_BOOST=1 -DHAVE_BOOST_THREAD=1
 DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
@@ -169,38 +144,38 @@ INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-INTERFACEDEPS_CFLAGS = -I/usr/local/redhawk/core/include/frontend -I/usr/local/redhawk/core/include/redhawk -I/usr/local/redhawk/core/include/bulkio -I/usr/local/redhawk/core/include/ossie  
-INTERFACEDEPS_LIBS = -L/usr/local/redhawk/core/lib64 -lfrontend-2.2.0 -lfrontendInterfaces -lbulkio-1.10 -lbulkioInterfaces  
+INTERFACEDEPS_CFLAGS = -I/usr/local/redhawk/core/include/redhawk  
+INTERFACEDEPS_LIBS = -L/usr/local/redhawk/core/lib64 -lfrontendInterfaces  
 LDFLAGS = 
 LIBOBJS = 
 LIBS =  -llog4cxx  
 LOG4CXX_CFLAGS =  
 LOG4CXX_LIBS = -llog4cxx  
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/thomas/Documents/redhawk-workspace/GPS_Receiver/cpp/missing --run makeinfo
+MAKEINFO = ${SHELL} /home/redhawkdev/Documents/apgRasPi/raspi/src/gps_receiver/cpp/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 OBJEXT = o
 OSSIE_HOME = /usr/local/redhawk/core
 PACKAGE = gps_receiver
 PACKAGE_BUGREPORT = 
-PACKAGE_NAME = GPS_Receiver
-PACKAGE_STRING = GPS_Receiver 1.0.0
+PACKAGE_NAME = gps_receiver
+PACKAGE_STRING = gps_receiver 1.0.0
 PACKAGE_TARNAME = gps_receiver
 PACKAGE_VERSION = 1.0.0
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
-PROJECTDEPS_CFLAGS = -D__x86_64__ -D__linux__ -D__OSVERSION__=2 -DENABLE_EVENTS=1 -I/usr/local/redhawk/core/include -I/usr/local/redhawk/core/include/ossie -I/usr/local/redhawk/core/share/idl  
-PROJECTDEPS_LIBS = -L/usr/local/redhawk/core/lib64 -lossiecf -lossieidl -lCOS4 -lomniDynamic4 -lomniORB4 -lomnithread  
+PROJECTDEPS_CFLAGS = -D__x86_64__ -D__linux__ -D__OSVERSION__=2 -DHAVE_LOG4CXX=1 -DENABLE_EVENTS=1 -I/usr/local/redhawk/core/include -I/usr/local/redhawk/core/include/ossie -I/usr/local/redhawk/core/share/idl  
+PROJECTDEPS_LIBS = -L/usr/local/redhawk/core/lib64 -lossiecf -lossieidl -lCOS4 -lomniDynamic4 -llog4cxx -lomniORB4 -lomnithread  
 SDR_ROOT = /var/redhawk/sdr
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = 
 VERSION = 1.0.0
 WITH_LOG4CXX = yes
-abs_builddir = /home/thomas/Documents/redhawk-workspace/GPS_Receiver/cpp
-abs_srcdir = /home/thomas/Documents/redhawk-workspace/GPS_Receiver/cpp
-abs_top_builddir = /home/thomas/Documents/redhawk-workspace/GPS_Receiver/cpp
-abs_top_srcdir = /home/thomas/Documents/redhawk-workspace/GPS_Receiver/cpp
+abs_builddir = /home/redhawkdev/Documents/apgRasPi/raspi/src/gps_receiver/cpp
+abs_srcdir = /home/redhawkdev/Documents/apgRasPi/raspi/src/gps_receiver/cpp
+abs_top_builddir = /home/redhawkdev/Documents/apgRasPi/raspi/src/gps_receiver/cpp
+abs_top_srcdir = /home/redhawkdev/Documents/apgRasPi/raspi/src/gps_receiver/cpp
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 am__include = include
@@ -208,7 +183,7 @@ am__leading_dot = .
 am__quote = 
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
-bindir = $(prefix)/dev/devices/GPS_Receiver/cpp/
+bindir = $(prefix)/dev/devices/gps_receiver/cpp/
 build = x86_64-unknown-linux-gnu
 build_alias = 
 build_cpu = x86_64
@@ -229,7 +204,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/thomas/Documents/redhawk-workspace/GPS_Receiver/cpp/install-sh
+install_sh = ${SHELL} /home/redhawkdev/Documents/apgRasPi/raspi/src/gps_receiver/cpp/install-sh
 libdir = ${exec_prefix}/lib64
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -249,27 +224,28 @@ target_alias =
 top_build_prefix = 
 top_builddir = .
 top_srcdir = .
-ossieName = GPS_Receiver
-xmldir = $(prefix)/dev/devices/GPS_Receiver/
-dist_xml_DATA = ../GPS_Receiver.scd.xml ../GPS_Receiver.prf.xml ../GPS_Receiver.spd.xml
+ossieName = gps_receiver
+xmldir = $(prefix)/dev/devices/gps_receiver/
+dist_xml_DATA = ../gps_receiver.scd.xml ../gps_receiver.prf.xml ../gps_receiver.spd.xml
 
 # This file is regularly auto-generated by the REDHAWK IDE. Do not modify!
 # Files can be excluded by right-clicking on the file in the project explorer
 # and choosing Resource Configurations -> Exclude from build. Re-include files
 # by opening the Properties dialog of your project and choosing C/C++ Build ->
 # Tool Chain Editor, and un-checking "Exclude resource from build "
-redhawk_SOURCES_auto = GPS_Receiver.cpp GPS_Receiver.h \
-	GPS_Receiver_base.cpp GPS_Receiver_base.h main.cpp
+redhawk_SOURCES_auto = gps_receiver.cpp gps_receiver.h \
+	gps_receiver_base.cpp gps_receiver_base.h main.cpp \
+	port_impl.cpp port_impl.h
 redhawk_LDADD_auto = /usr/local/lib/libnmea.a
-redhawk_LDFLAGS_auto = -lusb-1.0
+redhawk_LDFLAGS_auto = -lbulkioInterfaces -lusb-1.0
 
 # Sources, libraries and library directories are auto-included from a file
 # generated by the REDHAWK IDE. You can remove/modify the following lines if
 # you wish to manually control these options.
-GPS_Receiver_SOURCES = $(redhawk_SOURCES_auto)
-GPS_Receiver_LDADD = $(PROJECTDEPS_LIBS) $(BOOST_LDFLAGS) $(BOOST_THREAD_LIB) $(BOOST_REGEX_LIB) $(BOOST_SYSTEM_LIB) $(INTERFACEDEPS_LIBS) $(redhawk_LDADD_auto)
-GPS_Receiver_CXXFLAGS = -Wall $(PROJECTDEPS_CFLAGS) $(BOOST_CPPFLAGS) $(INTERFACEDEPS_CFLAGS) $(redhawk_INCLUDES_auto)
-GPS_Receiver_LDFLAGS = -Wall $(redhawk_LDFLAGS_auto)
+gps_receiver_SOURCES = $(redhawk_SOURCES_auto)
+gps_receiver_CXXFLAGS = -Wall $(PROJECTDEPS_CFLAGS) $(BOOST_CPPFLAGS) $(INTERFACEDEPS_CFLAGS) $(redhawk_INCLUDES_auto)
+gps_receiver_LDADD = $(PROJECTDEPS_LIBS) $(BOOST_LDFLAGS) $(BOOST_THREAD_LIB) $(INTERFACEDEPS_LIBS) $(redhawk_LDADD_auto)
+gps_receiver_LDFLAGS = -Wall $(redhawk_LDFLAGS_auto)
 all: all-am
 
 .SUFFIXES:
@@ -345,9 +321,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-GPS_Receiver$(EXEEXT): $(GPS_Receiver_OBJECTS) $(GPS_Receiver_DEPENDENCIES) 
-	@rm -f GPS_Receiver$(EXEEXT)
-	$(AM_V_CXXLD)$(GPS_Receiver_LINK) $(GPS_Receiver_OBJECTS) $(GPS_Receiver_LDADD) $(LIBS)
+gps_receiver$(EXEEXT): $(gps_receiver_OBJECTS) $(gps_receiver_DEPENDENCIES) 
+	@rm -f gps_receiver$(EXEEXT)
+	$(gps_receiver_LINK) $(gps_receiver_OBJECTS) $(gps_receiver_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -355,73 +331,80 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include ./$(DEPDIR)/GPS_Receiver-GPS_Receiver.Po
-include ./$(DEPDIR)/GPS_Receiver-GPS_Receiver_base.Po
-include ./$(DEPDIR)/GPS_Receiver-main.Po
+include ./$(DEPDIR)/gps_receiver-gps_receiver.Po
+include ./$(DEPDIR)/gps_receiver-gps_receiver_base.Po
+include ./$(DEPDIR)/gps_receiver-main.Po
+include ./$(DEPDIR)/gps_receiver-port_impl.Po
 
 .cpp.o:
-	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
-	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-#	$(AM_V_CXX) \
+	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
 #	source='$<' object='$@' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXXCOMPILE) -c -o $@ $<
 
 .cpp.obj:
-	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
-	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
-#	$(AM_V_CXX) \
+	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+	$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
 #	source='$<' object='$@' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
-GPS_Receiver-GPS_Receiver.o: GPS_Receiver.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(GPS_Receiver_CXXFLAGS) $(CXXFLAGS) -MT GPS_Receiver-GPS_Receiver.o -MD -MP -MF $(DEPDIR)/GPS_Receiver-GPS_Receiver.Tpo -c -o GPS_Receiver-GPS_Receiver.o `test -f 'GPS_Receiver.cpp' || echo '$(srcdir)/'`GPS_Receiver.cpp
-	$(AM_V_at)$(am__mv) $(DEPDIR)/GPS_Receiver-GPS_Receiver.Tpo $(DEPDIR)/GPS_Receiver-GPS_Receiver.Po
-#	$(AM_V_CXX) \
-#	source='GPS_Receiver.cpp' object='GPS_Receiver-GPS_Receiver.o' libtool=no \
+gps_receiver-gps_receiver.o: gps_receiver.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -MT gps_receiver-gps_receiver.o -MD -MP -MF $(DEPDIR)/gps_receiver-gps_receiver.Tpo -c -o gps_receiver-gps_receiver.o `test -f 'gps_receiver.cpp' || echo '$(srcdir)/'`gps_receiver.cpp
+	$(am__mv) $(DEPDIR)/gps_receiver-gps_receiver.Tpo $(DEPDIR)/gps_receiver-gps_receiver.Po
+#	source='gps_receiver.cpp' object='gps_receiver-gps_receiver.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(GPS_Receiver_CXXFLAGS) $(CXXFLAGS) -c -o GPS_Receiver-GPS_Receiver.o `test -f 'GPS_Receiver.cpp' || echo '$(srcdir)/'`GPS_Receiver.cpp
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -c -o gps_receiver-gps_receiver.o `test -f 'gps_receiver.cpp' || echo '$(srcdir)/'`gps_receiver.cpp
 
-GPS_Receiver-GPS_Receiver.obj: GPS_Receiver.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(GPS_Receiver_CXXFLAGS) $(CXXFLAGS) -MT GPS_Receiver-GPS_Receiver.obj -MD -MP -MF $(DEPDIR)/GPS_Receiver-GPS_Receiver.Tpo -c -o GPS_Receiver-GPS_Receiver.obj `if test -f 'GPS_Receiver.cpp'; then $(CYGPATH_W) 'GPS_Receiver.cpp'; else $(CYGPATH_W) '$(srcdir)/GPS_Receiver.cpp'; fi`
-	$(AM_V_at)$(am__mv) $(DEPDIR)/GPS_Receiver-GPS_Receiver.Tpo $(DEPDIR)/GPS_Receiver-GPS_Receiver.Po
-#	$(AM_V_CXX) \
-#	source='GPS_Receiver.cpp' object='GPS_Receiver-GPS_Receiver.obj' libtool=no \
+gps_receiver-gps_receiver.obj: gps_receiver.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -MT gps_receiver-gps_receiver.obj -MD -MP -MF $(DEPDIR)/gps_receiver-gps_receiver.Tpo -c -o gps_receiver-gps_receiver.obj `if test -f 'gps_receiver.cpp'; then $(CYGPATH_W) 'gps_receiver.cpp'; else $(CYGPATH_W) '$(srcdir)/gps_receiver.cpp'; fi`
+	$(am__mv) $(DEPDIR)/gps_receiver-gps_receiver.Tpo $(DEPDIR)/gps_receiver-gps_receiver.Po
+#	source='gps_receiver.cpp' object='gps_receiver-gps_receiver.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(GPS_Receiver_CXXFLAGS) $(CXXFLAGS) -c -o GPS_Receiver-GPS_Receiver.obj `if test -f 'GPS_Receiver.cpp'; then $(CYGPATH_W) 'GPS_Receiver.cpp'; else $(CYGPATH_W) '$(srcdir)/GPS_Receiver.cpp'; fi`
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -c -o gps_receiver-gps_receiver.obj `if test -f 'gps_receiver.cpp'; then $(CYGPATH_W) 'gps_receiver.cpp'; else $(CYGPATH_W) '$(srcdir)/gps_receiver.cpp'; fi`
 
-GPS_Receiver-GPS_Receiver_base.o: GPS_Receiver_base.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(GPS_Receiver_CXXFLAGS) $(CXXFLAGS) -MT GPS_Receiver-GPS_Receiver_base.o -MD -MP -MF $(DEPDIR)/GPS_Receiver-GPS_Receiver_base.Tpo -c -o GPS_Receiver-GPS_Receiver_base.o `test -f 'GPS_Receiver_base.cpp' || echo '$(srcdir)/'`GPS_Receiver_base.cpp
-	$(AM_V_at)$(am__mv) $(DEPDIR)/GPS_Receiver-GPS_Receiver_base.Tpo $(DEPDIR)/GPS_Receiver-GPS_Receiver_base.Po
-#	$(AM_V_CXX) \
-#	source='GPS_Receiver_base.cpp' object='GPS_Receiver-GPS_Receiver_base.o' libtool=no \
+gps_receiver-gps_receiver_base.o: gps_receiver_base.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -MT gps_receiver-gps_receiver_base.o -MD -MP -MF $(DEPDIR)/gps_receiver-gps_receiver_base.Tpo -c -o gps_receiver-gps_receiver_base.o `test -f 'gps_receiver_base.cpp' || echo '$(srcdir)/'`gps_receiver_base.cpp
+	$(am__mv) $(DEPDIR)/gps_receiver-gps_receiver_base.Tpo $(DEPDIR)/gps_receiver-gps_receiver_base.Po
+#	source='gps_receiver_base.cpp' object='gps_receiver-gps_receiver_base.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(GPS_Receiver_CXXFLAGS) $(CXXFLAGS) -c -o GPS_Receiver-GPS_Receiver_base.o `test -f 'GPS_Receiver_base.cpp' || echo '$(srcdir)/'`GPS_Receiver_base.cpp
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -c -o gps_receiver-gps_receiver_base.o `test -f 'gps_receiver_base.cpp' || echo '$(srcdir)/'`gps_receiver_base.cpp
 
-GPS_Receiver-GPS_Receiver_base.obj: GPS_Receiver_base.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(GPS_Receiver_CXXFLAGS) $(CXXFLAGS) -MT GPS_Receiver-GPS_Receiver_base.obj -MD -MP -MF $(DEPDIR)/GPS_Receiver-GPS_Receiver_base.Tpo -c -o GPS_Receiver-GPS_Receiver_base.obj `if test -f 'GPS_Receiver_base.cpp'; then $(CYGPATH_W) 'GPS_Receiver_base.cpp'; else $(CYGPATH_W) '$(srcdir)/GPS_Receiver_base.cpp'; fi`
-	$(AM_V_at)$(am__mv) $(DEPDIR)/GPS_Receiver-GPS_Receiver_base.Tpo $(DEPDIR)/GPS_Receiver-GPS_Receiver_base.Po
-#	$(AM_V_CXX) \
-#	source='GPS_Receiver_base.cpp' object='GPS_Receiver-GPS_Receiver_base.obj' libtool=no \
+gps_receiver-gps_receiver_base.obj: gps_receiver_base.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -MT gps_receiver-gps_receiver_base.obj -MD -MP -MF $(DEPDIR)/gps_receiver-gps_receiver_base.Tpo -c -o gps_receiver-gps_receiver_base.obj `if test -f 'gps_receiver_base.cpp'; then $(CYGPATH_W) 'gps_receiver_base.cpp'; else $(CYGPATH_W) '$(srcdir)/gps_receiver_base.cpp'; fi`
+	$(am__mv) $(DEPDIR)/gps_receiver-gps_receiver_base.Tpo $(DEPDIR)/gps_receiver-gps_receiver_base.Po
+#	source='gps_receiver_base.cpp' object='gps_receiver-gps_receiver_base.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(GPS_Receiver_CXXFLAGS) $(CXXFLAGS) -c -o GPS_Receiver-GPS_Receiver_base.obj `if test -f 'GPS_Receiver_base.cpp'; then $(CYGPATH_W) 'GPS_Receiver_base.cpp'; else $(CYGPATH_W) '$(srcdir)/GPS_Receiver_base.cpp'; fi`
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -c -o gps_receiver-gps_receiver_base.obj `if test -f 'gps_receiver_base.cpp'; then $(CYGPATH_W) 'gps_receiver_base.cpp'; else $(CYGPATH_W) '$(srcdir)/gps_receiver_base.cpp'; fi`
 
-GPS_Receiver-main.o: main.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(GPS_Receiver_CXXFLAGS) $(CXXFLAGS) -MT GPS_Receiver-main.o -MD -MP -MF $(DEPDIR)/GPS_Receiver-main.Tpo -c -o GPS_Receiver-main.o `test -f 'main.cpp' || echo '$(srcdir)/'`main.cpp
-	$(AM_V_at)$(am__mv) $(DEPDIR)/GPS_Receiver-main.Tpo $(DEPDIR)/GPS_Receiver-main.Po
-#	$(AM_V_CXX) \
-#	source='main.cpp' object='GPS_Receiver-main.o' libtool=no \
+gps_receiver-main.o: main.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -MT gps_receiver-main.o -MD -MP -MF $(DEPDIR)/gps_receiver-main.Tpo -c -o gps_receiver-main.o `test -f 'main.cpp' || echo '$(srcdir)/'`main.cpp
+	$(am__mv) $(DEPDIR)/gps_receiver-main.Tpo $(DEPDIR)/gps_receiver-main.Po
+#	source='main.cpp' object='gps_receiver-main.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(GPS_Receiver_CXXFLAGS) $(CXXFLAGS) -c -o GPS_Receiver-main.o `test -f 'main.cpp' || echo '$(srcdir)/'`main.cpp
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -c -o gps_receiver-main.o `test -f 'main.cpp' || echo '$(srcdir)/'`main.cpp
 
-GPS_Receiver-main.obj: main.cpp
-	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(GPS_Receiver_CXXFLAGS) $(CXXFLAGS) -MT GPS_Receiver-main.obj -MD -MP -MF $(DEPDIR)/GPS_Receiver-main.Tpo -c -o GPS_Receiver-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
-	$(AM_V_at)$(am__mv) $(DEPDIR)/GPS_Receiver-main.Tpo $(DEPDIR)/GPS_Receiver-main.Po
-#	$(AM_V_CXX) \
-#	source='main.cpp' object='GPS_Receiver-main.obj' libtool=no \
+gps_receiver-main.obj: main.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -MT gps_receiver-main.obj -MD -MP -MF $(DEPDIR)/gps_receiver-main.Tpo -c -o gps_receiver-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
+	$(am__mv) $(DEPDIR)/gps_receiver-main.Tpo $(DEPDIR)/gps_receiver-main.Po
+#	source='main.cpp' object='gps_receiver-main.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(GPS_Receiver_CXXFLAGS) $(CXXFLAGS) -c -o GPS_Receiver-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -c -o gps_receiver-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
+
+gps_receiver-port_impl.o: port_impl.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -MT gps_receiver-port_impl.o -MD -MP -MF $(DEPDIR)/gps_receiver-port_impl.Tpo -c -o gps_receiver-port_impl.o `test -f 'port_impl.cpp' || echo '$(srcdir)/'`port_impl.cpp
+	$(am__mv) $(DEPDIR)/gps_receiver-port_impl.Tpo $(DEPDIR)/gps_receiver-port_impl.Po
+#	source='port_impl.cpp' object='gps_receiver-port_impl.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -c -o gps_receiver-port_impl.o `test -f 'port_impl.cpp' || echo '$(srcdir)/'`port_impl.cpp
+
+gps_receiver-port_impl.obj: port_impl.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -MT gps_receiver-port_impl.obj -MD -MP -MF $(DEPDIR)/gps_receiver-port_impl.Tpo -c -o gps_receiver-port_impl.obj `if test -f 'port_impl.cpp'; then $(CYGPATH_W) 'port_impl.cpp'; else $(CYGPATH_W) '$(srcdir)/port_impl.cpp'; fi`
+	$(am__mv) $(DEPDIR)/gps_receiver-port_impl.Tpo $(DEPDIR)/gps_receiver-port_impl.Po
+#	source='port_impl.cpp' object='gps_receiver-port_impl.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gps_receiver_CXXFLAGS) $(CXXFLAGS) -c -o gps_receiver-port_impl.obj `if test -f 'port_impl.cpp'; then $(CYGPATH_W) 'port_impl.cpp'; else $(CYGPATH_W) '$(srcdir)/port_impl.cpp'; fi`
 install-dist_xmlDATA: $(dist_xml_DATA)
 	@$(NORMAL_INSTALL)
 	test -z "$(xmldir)" || $(MKDIR_P) "$(DESTDIR)$(xmldir)"

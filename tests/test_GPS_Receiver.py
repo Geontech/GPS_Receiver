@@ -4,23 +4,24 @@ import ossie.utils.testing
 import os
 from omniORB import any
 
-class ResourceTests(ossie.utils.testing.ScaComponentTestCase):
-    """Test for all resource implementations in GPS_Receiver"""
+class DeviceTests(ossie.utils.testing.ScaComponentTestCase):
+    """Test for all device implementations in gps_receiver"""
 
     def testScaBasicBehavior(self):
         #######################################################################
-        # Launch the resource with the default execparams
+        # Launch the device with the default execparams
         execparams = self.getPropertySet(kinds=("execparam",), modes=("readwrite", "writeonly"), includeNil=False)
         execparams = dict([(x.id, any.from_any(x.value)) for x in execparams])
         self.launch(execparams)
-
+        
         #######################################################################
-        # Verify the basic state of the resource
+        # Verify the basic state of the device
         self.assertNotEqual(self.comp, None)
         self.assertEqual(self.comp.ref._non_existent(), False)
-
-        self.assertEqual(self.comp.ref._is_a("IDL:CF/Resource:1.0"), True)
-
+	
+        self.assertEqual(self.comp.ref._is_a("IDL:CF/Device:1.0"), True)
+	
+        
         #######################################################################
         # Validate that query returns all expected parameters
         # Query of '[]' should return the following set of properties
@@ -32,7 +33,7 @@ class ResourceTests(ossie.utils.testing.ScaComponentTestCase):
         # Query may return more than expected, but not less
         for expectedProp in expectedProps:
             self.assertEquals(props.has_key(expectedProp.id), True)
-
+        
         #######################################################################
         # Verify that all expected ports are available
         for port in self.scd.get_componentfeatures().get_ports().get_uses():
@@ -40,27 +41,28 @@ class ResourceTests(ossie.utils.testing.ScaComponentTestCase):
             self.assertNotEqual(port_obj, None)
             self.assertEqual(port_obj._non_existent(), False)
             self.assertEqual(port_obj._is_a("IDL:CF/Port:1.0"),  True)
-
+            
         for port in self.scd.get_componentfeatures().get_ports().get_provides():
             port_obj = self.comp.getPort(str(port.get_providesname()))
             self.assertNotEqual(port_obj, None)
             self.assertEqual(port_obj._non_existent(), False)
             self.assertEqual(port_obj._is_a(port.get_repid()),  True)
-
+            
         #######################################################################
         # Make sure start and stop can be called without throwing exceptions
         self.comp.start()
         self.comp.stop()
-
+        
         #######################################################################
-        # Simulate regular resource shutdown
+        # Simulate regular device shutdown
         self.comp.releaseObject()
+        
     # TODO Add additional tests here
     #
     # See:
     #   ossie.utils.bulkio.bulkio_helpers,
     #   ossie.utils.bluefile.bluefile_helpers
-    # for modules that will assist with testing resource with BULKIO ports
-
+    # for modules that will assist with testing devices with BULKIO ports
+    
 if __name__ == "__main__":
-    ossie.utils.testing.main("../GPS_Receiver.spd.xml") # By default tests all implementations
+    ossie.utils.testing.main("../gps_receiver.spd.xml") # By default tests all implementations

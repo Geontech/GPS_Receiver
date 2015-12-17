@@ -12,7 +12,7 @@
     <supportsinterface repid="IDL:CF/PropertySet:1.0" supportsname="PropertySet"/>
     <supportsinterface repid="IDL:CF/TestableObject:1.0" supportsname="TestableObject"/>
     <ports>
-      <provides repid="IDL:FRONTEND/GPS:1.0" providesname="gps"/>
+      <provides repid="IDL:FRONTEND/GPS:1.0" providesname="GPS_idl"/>
     </ports>
   </componentfeatures>
   <interfaces>

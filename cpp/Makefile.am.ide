@@ -3,10 +3,13 @@
 # and choosing Resource Configurations -> Exclude from build. Re-include files
 # by opening the Properties dialog of your project and choosing C/C++ Build ->
 # Tool Chain Editor, and un-checking "Exclude resource from build "
-redhawk_SOURCES_auto = GPS_Receiver.cpp
-redhawk_SOURCES_auto += GPS_Receiver.h
-redhawk_SOURCES_auto += GPS_Receiver_base.cpp
-redhawk_SOURCES_auto += GPS_Receiver_base.h
+redhawk_SOURCES_auto = gps_receiver.cpp
+redhawk_SOURCES_auto += gps_receiver.h
+redhawk_SOURCES_auto += gps_receiver_base.cpp
+redhawk_SOURCES_auto += gps_receiver_base.h
 redhawk_SOURCES_auto += main.cpp
+redhawk_SOURCES_auto += port_impl.cpp
+redhawk_SOURCES_auto += port_impl.h
 redhawk_LDADD_auto = /usr/local/lib/libnmea.a
-redhawk_LDFLAGS_auto = -lusb-1.0
+redhawk_LDFLAGS_auto = -lbulkioInterfaces
+redhawk_LDFLAGS_auto += -lusb-1.0

@@ -1,9 +1,9 @@
 #include <iostream>
 #include "ossie/ossieSupport.h"
 
-#include "GPS_Receiver.h"
+#include "gps_receiver.h"
 
-GPS_Receiver_i *devicePtr;
+gps_receiver_i *devicePtr;
 
 void signal_catcher(int sig)
 {
@@ -13,6 +13,7 @@ void signal_catcher(int sig)
         devicePtr->halt();
     }
 }
+
 int main(int argc, char* argv[])
 {
     struct sigaction sa;
@@ -23,4 +24,3 @@ int main(int argc, char* argv[])
     Device_impl::start_device(&devicePtr, sa, argc, argv);
     return 0;
 }
-

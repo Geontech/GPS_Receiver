@@ -806,33 +806,6 @@ Check your system clock])
 fi
 AC_MSG_RESULT(yes)])
 
-# Copyright (C) 2009  Free Software Foundation, Inc.
-#
-# This file is free software; the Free Software Foundation
-# gives unlimited permission to copy and/or distribute it,
-# with or without modifications, as long as this notice is preserved.
-
-# serial 1
-
-# AM_SILENT_RULES([DEFAULT])
-# --------------------------
-# Enable less verbose build rules; with the default set to DEFAULT
-# (`yes' being less verbose, `no' or empty being verbose).
-AC_DEFUN([AM_SILENT_RULES],
-[AC_ARG_ENABLE([silent-rules],
-[  --enable-silent-rules          less verbose build output (undo: `make V=1')
-  --disable-silent-rules         verbose build output (undo: `make V=0')])
-case $enable_silent_rules in
-yes) AM_DEFAULT_VERBOSITY=0;;
-no)  AM_DEFAULT_VERBOSITY=1;;
-*)   AM_DEFAULT_VERBOSITY=m4_if([$1], [yes], [0], [1]);;
-esac
-AC_SUBST([AM_DEFAULT_VERBOSITY])dnl
-AM_BACKSLASH='\'
-AC_SUBST([AM_BACKSLASH])dnl
-_AM_SUBST_NOTMAKE([AM_BACKSLASH])dnl
-])
-
 # Copyright (C) 2001, 2003, 2005  Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
@@ -1073,7 +1046,7 @@ AC_DEFUN([AC_CORBA_SOCKET_NSL],[
 #   and this notice are preserved. This file is offered as-is, without any
 #   warranty.
 
-#serial 23
+#serial 20
 
 AC_DEFUN([AX_BOOST_BASE],
 [
@@ -1131,23 +1104,9 @@ if test "x$want_boost" = "xyes"; then
     dnl are found, e.g. when only header-only libraries are installed!
     libsubdirs="lib"
     ax_arch=`uname -m`
-    case $ax_arch in
-      x86_64|ppc64|s390x|sparc64|aarch64)
+    if test $ax_arch = x86_64 -o $ax_arch = ppc64 -o $ax_arch = s390x -o $ax_arch = sparc64; then
         libsubdirs="lib64 lib lib64"
-        ;;
-    esac
-
-    dnl allow for real multi-arch paths e.g. /usr/lib/x86_64-linux-gnu. Give
-    dnl them priority over the other paths since, if libs are found there, they
-    dnl are almost assuredly the ones desired.
-    AC_REQUIRE([AC_CANONICAL_HOST])
-    libsubdirs="lib/${host_cpu}-${host_os} $libsubdirs"
-
-    case ${host_cpu} in
-      i?86)
-        libsubdirs="lib/i386-${host_os} $libsubdirs"
-        ;;
-    esac
+    fi
 
     CPPFLAGS_SAVED="$CPPFLAGS"
     LDFLAGS_SAVED="$LDFLAGS"
@@ -1329,240 +1288,7 @@ fi
 ])
 
 # ===========================================================================
-#      http://www.gnu.org/software/autoconf-archive/ax_boost_regex.html
-# ===========================================================================
-#
-# SYNOPSIS
-#
-#   AX_BOOST_REGEX
-#
-# DESCRIPTION
-#
-#   Test for Regex library from the Boost C++ libraries. The macro requires
-#   a preceding call to AX_BOOST_BASE. Further documentation is available at
-#   <http://randspringer.de/boost/index.html>.
-#
-#   This macro calls:
-#
-#     AC_SUBST(BOOST_REGEX_LIB)
-#
-#   And sets:
-#
-#     HAVE_BOOST_REGEX
-#
-# LICENSE
-#
-#   Copyright (c) 2008 Thomas Porschberg <thomas@randspringer.de>
-#   Copyright (c) 2008 Michael Tindal
-#
-#   Copying and distribution of this file, with or without modification, are
-#   permitted in any medium without royalty provided the copyright notice
-#   and this notice are preserved. This file is offered as-is, without any
-#   warranty.
-
-#serial 22
-
-AC_DEFUN([AX_BOOST_REGEX],
-[
-	AC_ARG_WITH([boost-regex],
-	AS_HELP_STRING([--with-boost-regex@<:@=special-lib@:>@],
-                   [use the Regex library from boost - it is possible to specify a certain library for the linker
-                        e.g. --with-boost-regex=boost_regex-gcc-mt-d-1_33_1 ]),
-        [
-        if test "$withval" = "no"; then
-			want_boost="no"
-        elif test "$withval" = "yes"; then
-            want_boost="yes"
-            ax_boost_user_regex_lib=""
-        else
-		    want_boost="yes"
-		ax_boost_user_regex_lib="$withval"
-		fi
-        ],
-        [want_boost="yes"]
-	)
-
-	if test "x$want_boost" = "xyes"; then
-        AC_REQUIRE([AC_PROG_CC])
-		CPPFLAGS_SAVED="$CPPFLAGS"
-		CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
-		export CPPFLAGS
-
-		LDFLAGS_SAVED="$LDFLAGS"
-		LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
-		export LDFLAGS
-
-        AC_CACHE_CHECK(whether the Boost::Regex library is available,
-					   ax_cv_boost_regex,
-        [AC_LANG_PUSH([C++])
-			 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[@%:@include <boost/regex.hpp>
-												]],
-                                   [[boost::regex r(); return 0;]])],
-                   ax_cv_boost_regex=yes, ax_cv_boost_regex=no)
-         AC_LANG_POP([C++])
-		])
-		if test "x$ax_cv_boost_regex" = "xyes"; then
-			AC_DEFINE(HAVE_BOOST_REGEX,1,[define if the Boost::Regex library is available])
-            BOOSTLIBDIR=`echo $BOOST_LDFLAGS | sed -e 's/@<:@^\/@:>@*//'`
-            if test "x$ax_boost_user_regex_lib" = "x"; then
-                for libextension in `ls $BOOSTLIBDIR/libboost_regex*.so* $BOOSTLIBDIR/libboost_regex*.dylib* $BOOSTLIBDIR/libboost_regex*.a* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(boost_regex.*\)\.so.*$;\1;' -e 's;^lib\(boost_regex.*\)\.dylib.*;\1;' -e 's;^lib\(boost_regex.*\)\.a.*$;\1;'` ; do
-                     ax_lib=${libextension}
-				    AC_CHECK_LIB($ax_lib, exit,
-                                 [BOOST_REGEX_LIB="-l$ax_lib"; AC_SUBST(BOOST_REGEX_LIB) link_regex="yes"; break],
-                                 [link_regex="no"])
-				done
-                if test "x$link_regex" != "xyes"; then
-                for libextension in `ls $BOOSTLIBDIR/boost_regex*.dll* $BOOSTLIBDIR/boost_regex*.a* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^\(boost_regex.*\)\.dll.*$;\1;' -e 's;^\(boost_regex.*\)\.a.*$;\1;'` ; do
-                     ax_lib=${libextension}
-				    AC_CHECK_LIB($ax_lib, exit,
-                                 [BOOST_REGEX_LIB="-l$ax_lib"; AC_SUBST(BOOST_REGEX_LIB) link_regex="yes"; break],
-                                 [link_regex="no"])
-				done
-                fi
-
-            else
-               for ax_lib in $ax_boost_user_regex_lib boost_regex-$ax_boost_user_regex_lib; do
-				      AC_CHECK_LIB($ax_lib, main,
-                                   [BOOST_REGEX_LIB="-l$ax_lib"; AC_SUBST(BOOST_REGEX_LIB) link_regex="yes"; break],
-                                   [link_regex="no"])
-               done
-            fi
-            if test "x$ax_lib" = "x"; then
-                AC_MSG_ERROR(Could not find a version of the Boost::Regex library!)
-            fi
-			if test "x$link_regex" != "xyes"; then
-				AC_MSG_ERROR(Could not link against $ax_lib !)
-			fi
-		fi
-
-		CPPFLAGS="$CPPFLAGS_SAVED"
-	LDFLAGS="$LDFLAGS_SAVED"
-	fi
-])
-
-# ===========================================================================
-#      http://www.gnu.org/software/autoconf-archive/ax_boost_system.html
-# ===========================================================================
-#
-# SYNOPSIS
-#
-#   AX_BOOST_SYSTEM
-#
-# DESCRIPTION
-#
-#   Test for System library from the Boost C++ libraries. The macro requires
-#   a preceding call to AX_BOOST_BASE. Further documentation is available at
-#   <http://randspringer.de/boost/index.html>.
-#
-#   This macro calls:
-#
-#     AC_SUBST(BOOST_SYSTEM_LIB)
-#
-#   And sets:
-#
-#     HAVE_BOOST_SYSTEM
-#
-# LICENSE
-#
-#   Copyright (c) 2008 Thomas Porschberg <thomas@randspringer.de>
-#   Copyright (c) 2008 Michael Tindal
-#   Copyright (c) 2008 Daniel Casimiro <dan.casimiro@gmail.com>
-#
-#   Copying and distribution of this file, with or without modification, are
-#   permitted in any medium without royalty provided the copyright notice
-#   and this notice are preserved. This file is offered as-is, without any
-#   warranty.
-
-#serial 17
-
-AC_DEFUN([AX_BOOST_SYSTEM],
-[
-	AC_ARG_WITH([boost-system],
-	AS_HELP_STRING([--with-boost-system@<:@=special-lib@:>@],
-                   [use the System library from boost - it is possible to specify a certain library for the linker
-                        e.g. --with-boost-system=boost_system-gcc-mt ]),
-        [
-        if test "$withval" = "no"; then
-			want_boost="no"
-        elif test "$withval" = "yes"; then
-            want_boost="yes"
-            ax_boost_user_system_lib=""
-        else
-		    want_boost="yes"
-		ax_boost_user_system_lib="$withval"
-		fi
-        ],
-        [want_boost="yes"]
-	)
-
-	if test "x$want_boost" = "xyes"; then
-        AC_REQUIRE([AC_PROG_CC])
-        AC_REQUIRE([AC_CANONICAL_BUILD])
-		CPPFLAGS_SAVED="$CPPFLAGS"
-		CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
-		export CPPFLAGS
-
-		LDFLAGS_SAVED="$LDFLAGS"
-		LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
-		export LDFLAGS
-
-        AC_CACHE_CHECK(whether the Boost::System library is available,
-					   ax_cv_boost_system,
-        [AC_LANG_PUSH([C++])
-			 CXXFLAGS_SAVE=$CXXFLAGS
-
-			 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[@%:@include <boost/system/error_code.hpp>]],
-                                   [[boost::system::system_category]])],
-                   ax_cv_boost_system=yes, ax_cv_boost_system=no)
-			 CXXFLAGS=$CXXFLAGS_SAVE
-             AC_LANG_POP([C++])
-		])
-		if test "x$ax_cv_boost_system" = "xyes"; then
-			AC_SUBST(BOOST_CPPFLAGS)
-
-			AC_DEFINE(HAVE_BOOST_SYSTEM,1,[define if the Boost::System library is available])
-            BOOSTLIBDIR=`echo $BOOST_LDFLAGS | sed -e 's/@<:@^\/@:>@*//'`
-
-			LDFLAGS_SAVE=$LDFLAGS
-            if test "x$ax_boost_user_system_lib" = "x"; then
-                for libextension in `ls -r $BOOSTLIBDIR/libboost_system* 2>/dev/null | sed 's,.*/lib,,' | sed 's,\..*,,'` ; do
-                     ax_lib=${libextension}
-				    AC_CHECK_LIB($ax_lib, exit,
-                                 [BOOST_SYSTEM_LIB="-l$ax_lib"; AC_SUBST(BOOST_SYSTEM_LIB) link_system="yes"; break],
-                                 [link_system="no"])
-				done
-                if test "x$link_system" != "xyes"; then
-                for libextension in `ls -r $BOOSTLIBDIR/boost_system* 2>/dev/null | sed 's,.*/,,' | sed -e 's,\..*,,'` ; do
-                     ax_lib=${libextension}
-				    AC_CHECK_LIB($ax_lib, exit,
-                                 [BOOST_SYSTEM_LIB="-l$ax_lib"; AC_SUBST(BOOST_SYSTEM_LIB) link_system="yes"; break],
-                                 [link_system="no"])
-				done
-                fi
-
-            else
-               for ax_lib in $ax_boost_user_system_lib boost_system-$ax_boost_user_system_lib; do
-				      AC_CHECK_LIB($ax_lib, exit,
-                                   [BOOST_SYSTEM_LIB="-l$ax_lib"; AC_SUBST(BOOST_SYSTEM_LIB) link_system="yes"; break],
-                                   [link_system="no"])
-                  done
-
-            fi
-            if test "x$ax_lib" = "x"; then
-                AC_MSG_ERROR(Could not find a version of the library!)
-            fi
-			if test "x$link_system" = "xno"; then
-				AC_MSG_ERROR(Could not link against $ax_lib !)
-			fi
-		fi
-
-		CPPFLAGS="$CPPFLAGS_SAVED"
-	LDFLAGS="$LDFLAGS_SAVED"
-	fi
-])
-
-# ===========================================================================
-#      http://www.gnu.org/software/autoconf-archive/ax_boost_thread.html
+#       http://www.nongnu.org/autoconf-archive/ax_boost_thread.html
 # ===========================================================================
 #
 # SYNOPSIS
@@ -1571,9 +1297,9 @@ AC_DEFUN([AX_BOOST_SYSTEM],
 #
 # DESCRIPTION
 #
-#   Test for Thread library from the Boost C++ libraries. The macro requires
-#   a preceding call to AX_BOOST_BASE. Further documentation is available at
-#   <http://randspringer.de/boost/index.html>.
+#   Test for Thread library from the Boost C++ libraries. The macro
+#   requires a preceding call to AX_BOOST_BASE. Further documentation is
+#   available at <http://randspringer.de/boost/index.html>.
 #
 #   This macro calls:
 #
@@ -1590,146 +1316,122 @@ AC_DEFUN([AX_BOOST_SYSTEM],
 #
 #   Copying and distribution of this file, with or without modification, are
 #   permitted in any medium without royalty provided the copyright notice
-#   and this notice are preserved. This file is offered as-is, without any
-#   warranty.
+#   and this notice are preserved.
 
-#serial 27
+#serial 23
 
 AC_DEFUN([AX_BOOST_THREAD],
 [
 	AC_ARG_WITH([boost-thread],
 	AS_HELP_STRING([--with-boost-thread@<:@=special-lib@:>@],
-                   [use the Thread library from boost - it is possible to specify a certain library for the linker
-                        e.g. --with-boost-thread=boost_thread-gcc-mt ]),
-        [
-        if test "$withval" = "no"; then
-			want_boost="no"
-        elif test "$withval" = "yes"; then
-            want_boost="yes"
-            ax_boost_user_thread_lib=""
-        else
-		    want_boost="yes"
+	[use the Thread library from boost - it is possible to specify a certain library for the linker. e.g., --with-boost-thread=boost_thread-gcc-mt ]),
+	[
+	if test "$withval" = "no"; then
+		want_boost="no"
+	elif test "$withval" = "yes"; then
+		want_boost="yes"
+		ax_boost_user_thread_lib=""
+	else
+		want_boost="yes"
 		ax_boost_user_thread_lib="$withval"
 		fi
-        ],
-        [want_boost="yes"]
+	],
+	[want_boost="yes"]
 	)
-
+	
 	if test "x$want_boost" = "xyes"; then
-        AC_REQUIRE([AC_PROG_CC])
-        AC_REQUIRE([AC_CANONICAL_BUILD])
+	AC_REQUIRE([AC_PROG_CC])
+	AC_REQUIRE([AC_CANONICAL_BUILD])
 		CPPFLAGS_SAVED="$CPPFLAGS"
 		CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
 		export CPPFLAGS
-
+		
 		LDFLAGS_SAVED="$LDFLAGS"
 		LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
 		export LDFLAGS
-
-        AC_CACHE_CHECK(whether the Boost::Thread library is available,
-					   ax_cv_boost_thread,
-        [AC_LANG_PUSH([C++])
-			 CXXFLAGS_SAVE=$CXXFLAGS
-
-			 if test "x$host_os" = "xsolaris" ; then
-				 CXXFLAGS="-pthreads $CXXFLAGS"
-			 elif test "x$host_os" = "xmingw32" ; then
-				 CXXFLAGS="-mthreads $CXXFLAGS"
-			 else
-				CXXFLAGS="-pthread $CXXFLAGS"
-			 fi
-			 AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[@%:@include <boost/thread/thread.hpp>]],
-                                   [[boost::thread_group thrds;
-                                   return 0;]])],
-                   ax_cv_boost_thread=yes, ax_cv_boost_thread=no)
-			 CXXFLAGS=$CXXFLAGS_SAVE
-             AC_LANG_POP([C++])
+	
+	AC_CACHE_CHECK(whether the Boost::Thread library is available,
+					ax_cv_boost_thread,
+	[AC_LANG_PUSH([C++])
+			CXXFLAGS_SAVE=$CXXFLAGS
+			
+			if test "x$host_os" = "xsolaris" ; then
+				CXXFLAGS="-pthreads $CXXFLAGS"
+			elif test "x$host_os" = "xmingw32"; then
+				CXXFLAGS="-mthreads $CXXFLAGS"
+			else
+				CXXFLAG="-pthread $CXXFLAGS"
+			fi
+			AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[@%:@include <boost/thread/thread.hpp>]],
+				[[boost::thread_group thrds;
+				return 0;]])],
+		ax_cv_boost_thread=yes, ax_cv_boost_thread=no)
+			CXXFLAGS=$CXXFLAGS_SAVE
+	AC_LANG_POP([C++])
 		])
 		if test "x$ax_cv_boost_thread" = "xyes"; then
-           if test "x$host_os" = "xsolaris" ; then
-			  BOOST_CPPFLAGS="-pthreads $BOOST_CPPFLAGS"
-		   elif test "x$host_os" = "xmingw32" ; then
-			  BOOST_CPPFLAGS="-mthreads $BOOST_CPPFLAGS"
-		   else
-			  BOOST_CPPFLAGS="-pthread $BOOST_CPPFLAGS"
-		   fi
-
-			AC_SUBST(BOOST_CPPFLAGS)
-
-			AC_DEFINE(HAVE_BOOST_THREAD,1,[define if the Boost::Thread library is available])
-            BOOSTLIBDIR=`echo $BOOST_LDFLAGS | sed -e 's/@<:@^\/@:>@*//'`
-
-			LDFLAGS_SAVE=$LDFLAGS
-                        case "x$host_os" in
-                          *bsd* )
-                               LDFLAGS="-pthread $LDFLAGS"
-                          break;
-                          ;;
-                        esac
-            if test "x$ax_boost_user_thread_lib" = "x"; then
-                for libextension in `ls -r $BOOSTLIBDIR/libboost_thread* 2>/dev/null | sed 's,.*/lib,,' | sed 's,\..*,,'`; do
-                     ax_lib=${libextension}
-				    AC_CHECK_LIB($ax_lib, exit,
-                                 [BOOST_THREAD_LIB="-l$ax_lib"; AC_SUBST(BOOST_THREAD_LIB) link_thread="yes"; break],
-                                 [link_thread="no"])
-				done
-                if test "x$link_thread" != "xyes"; then
-                for libextension in `ls -r $BOOSTLIBDIR/boost_thread* 2>/dev/null | sed 's,.*/,,' | sed 's,\..*,,'`; do
-                     ax_lib=${libextension}
-				    AC_CHECK_LIB($ax_lib, exit,
-                                 [BOOST_THREAD_LIB="-l$ax_lib"; AC_SUBST(BOOST_THREAD_LIB) link_thread="yes"; break],
-                                 [link_thread="no"])
-				done
-                fi
-
-            else
-               for ax_lib in $ax_boost_user_thread_lib boost_thread-$ax_boost_user_thread_lib; do
-				      AC_CHECK_LIB($ax_lib, exit,
-                                   [BOOST_THREAD_LIB="-l$ax_lib"; AC_SUBST(BOOST_THREAD_LIB) link_thread="yes"; break],
-                                   [link_thread="no"])
-                  done
-
-            fi
-            if test "x$ax_lib" = "x"; then
-                AC_MSG_ERROR(Could not find a version of the library!)
-            fi
-			if test "x$link_thread" = "xno"; then
-				AC_MSG_ERROR(Could not link against $ax_lib !)
-                        else
-                           case "x$host_os" in
-                              *bsd* )
-				BOOST_LDFLAGS="-pthread $BOOST_LDFLAGS"
-                              break;
-                              ;;
-                           esac
-
-			fi
+		if test "x$host_os" = "xsolaris"; then
+			BOOST_CPPFLAGS="-pthreads $BOOST_CPPFLAGS"
+		elif test "x$host_os" = "xmingw32"; then
+			BOOST_CPPFLAGS="-mthreads $BOOST_CPPFLAGS"
+		else
+			BOOST_CPPFLAGS="-pthread $BOOST_CPPFLAGS"
 		fi
-
-		CPPFLAGS="$CPPFLAGS_SAVED"
+		
+			AC_SUBST(BOOST_CPPFLAGS)
+			
+			AC_DEFINE(HAVE_BOOST_THREAD,1,[define if the Boost::Thread library is available])
+		BOOSTLIBDIR=`echo $BOOST_LDFLAGS | sed -e 's/@<:@^\/@:>@*//'`
+		
+			LDFLAGS_SAVE=$LDFLAGS
+			case "x$host_os" in
+				*bsd* )
+					LDFLAGS="-pthread $LDFLAGS"
+				break;
+				;;
+			esac
+		
+		if test "x$ax_boost_user_thread_lib" = "x"; then
+			for libextension in `ls $BOOSTLIBDIR/libboost_thread*.so* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(boost_thread.*\)\.so.*$;\1;'` `ls $BOOSTLIBDIR/libboost_thread*.a* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(boost_thread.*\)\.a*$;\1;'`; do
+				ax_lib=${libextension}
+					AC_CHECK_LIB($ax_lib, exit,
+					[BOOST_THREAD_LIB="-l$ax_lib"; AC_SUBST(BOOST_THREAD_LIB) link_thread="yes"; break],
+					[link_thread="no"])
+					done
+			if test "x$link_thread" != "xyes"; then
+			for libextension in `ls $BOOSTLIBDIR/boost_thread*.dll* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^\(boost_thread.*\)\.dll.*$;\1;'` `ls $BOOSTLIBDIR/boost_thread*.a* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^\(boost_thread.*\)\.a*$;\1;'` ; do
+				ax_lib=${libextension}
+					AC_CHECK_LIB($ax_lib, exit,
+					[BOOST_THREAD_LIB="-l$ax_lib"; AC_SUBST(BOOST_THREAD_LIB) link_thread="yes"; break],
+					[link_thread="no"])
+					done
+			fi
+		else
+			for ax_lib in $ax_boost_user_thread_lib boost_thread-$ax_boost_user_thread_lib; do
+				AC_CHECK_LIB($ax_lib, exit,
+				[BOOST_THREAD_LIB="-l$ax_lib"; AC_SUBST(BOOST_THREAD_LIB) link_thread="yes"; break],
+				[link_thread="no"])
+			done
+		fi
+		if test "x$ax_lib" = "x"; then
+			AC_MSG_ERROR(Could not find a version of the library!)
+		fi
+		if test "x$link_thread" = "xno"; then
+			AC_MSG_ERROR(Could not link against $ax_lib !)
+		else
+			case "x$host_os" in
+				*bsd* )
+					BOOST_LDFLAGS="-pthread $BOOST_LDFLAGS"
+				break;
+				;;
+			esac
+		fi
+	fi
+	CPPFLAGS="$CPPFLAGS_SAVED"
 	LDFLAGS="$LDFLAGS_SAVED"
 	fi
 ])
 
-dnl
-dnl This file is protected by Copyright. Please refer to the COPYRIGHT file
-dnl distributed with this source distribution.
-dnl
-dnl This file is part of REDHAWK core.
-dnl
-dnl REDHAWK core is free software: you can redistribute it and/or modify it under
-dnl the terms of the GNU Lesser General Public License as published by the Free
-dnl Software Foundation, either version 3 of the License, or (at your option) any
-dnl later version.
-dnl
-dnl REDHAWK core is distributed in the hope that it will be useful, but WITHOUT
-dnl ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-dnl FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
-dnl details.
-dnl
-dnl You should have received a copy of the GNU Lesser General Public License
-dnl along with this program.  If not, see http://www.gnu.org/licenses/.
-dnl
 dnl GR_LIB64()
 dnl
 dnl Checks to see if we're on a x86_64 or powerpc64 machine, and if so, determine
@@ -1808,28 +1510,25 @@ dnl 1. the --with-ossie argument
 dnl 2. the OSSIEHOME environment variable
 dnl 3. the --prefix argument
 AC_DEFUN([OSSIE_OSSIEHOME],
-[
-  AC_CACHE_CHECK([for ossie home], ossie_cv_ossie_home,
-  [
-    AC_ARG_WITH(ossie,
-      AC_HELP_STRING([--with-ossie], [ossie root directory (default from environment variable 'OSSIEHOME', otherwise from prefix)]),
-      ossie_cv_ossie_home=$withval,
-      if test "x${OSSIEHOME}" != "x"; then
-        ossie_cv_ossie_home=${OSSIEHOME}
-      elif test "x${prefix}" != "xNONE"; then
-        ossie_cv_ossie_home=${prefix}
-      else
-        ossie_cv_ossie_home=$ac_default_prefix
-      fi
-    )
+[AC_CACHE_CHECK(for ossie home,
+ossie_cv_ossie_home,
+[AC_ARG_WITH(ossie,
+             AC_HELP_STRING([--with-ossie], [ossie root directory, defaults to prefix]),
+             ossie_cv_ossie_home=$withval,
+             if test "x${OSSIEHOME}" != "x"; then
+               ossie_cv_ossie_home=${OSSIEHOME}
+             else
+               ossie_cv_ossie_home=$prefix
+             fi)
 
-    dnl Check if this is a cross, if so prepend the sysroot to the ossie home
-    AS_IF([test "x$cross_compiling" = "xyes"], [
-      CROSS_SYSROOT=`$CC --print-sysroot`
-      ossie_cv_ossie_home=${CROSS_SYSROOT}${ossie_cv_ossie_home}
-    ])
-  ])
-  AC_SUBST(OSSIE_HOME, $ossie_cv_ossie_home)
+dnl Check if this is a cross, if so prepend the sysroot to the ossie home
+if test "x$cross_compiling" == "xyes"; then
+  CROSS_SYSROOT=`$CC --print-sysroot`
+  ossie_cv_ossie_home=${CROSS_SYSROOT}${ossie_cv_ossie_home}
+fi
+
+])
+AC_SUBST(OSSIE_HOME, $ossie_cv_ossie_home)
 ])
 
 dnl Check that OSSIE is installed so we can compile against it
@@ -1850,38 +1549,17 @@ else
   AC_MSG_ERROR(You must specify a valid ossie root directory.  Try using --with-ossie)
 fi
 ])
-
 dnl use OSSIEHOME as the default prefix unless --prefix is provided
 AC_DEFUN([OSSIE_OSSIEHOME_AS_PREFIX],
 [
-  AS_IF([test "x${prefix}" = "xNONE"], [
-    dnl Prefix wasn't provided, we need to use ossie home
-    AC_REQUIRE([OSSIE_OSSIEHOME])
-    AS_IF([test "x${ossie_cv_ossie_home}" = "xNONE"], [
-      AC_MSG_ERROR([ossie root directory is not set; this is not expected])
-    ])
-    dnl Use ossie home value for prefix
-    ac_default_prefix=${ossie_cv_ossie_home}
-    prefix=${ossie_cv_ossie_home}
-    AC_MSG_NOTICE(using ${ossie_cv_ossie_home} as installation prefix)
-  ])
-])
-
-dnl A variant on OSSIE_SDRROOT for use *only* when OSSIE_OSSIEHOME_AS_PREFIX is being used. Priorities:
-dnl 1. the --with-sdr argument
-dnl 2. the SDRROOT environment variable
-dnl 3. the default SDRROOT directory (/var/redhawk/sdr)
-AC_DEFUN([OSSIE_SDRROOT_IGNORE_PREFIX],
-[
-  AC_CACHE_CHECK([for sdr root], ossie_cv_sdr_root,
-  [
-    AC_ARG_WITH(sdr,
-      AC_HELP_STRING([--with-sdr], [sdr root directory (default from environment variable 'SDRROOT', otherwise /var/redhawk/sdr)]),
-      ossie_cv_sdr_root=$withval,
-      AS_IF([test "x${SDRROOT}" != "x"], [ossie_cv_sdr_root=${SDRROOT}],
-            [ossie_cv_sdr_root=/var/redhawk/sdr]))
-  ])
-  AC_SUBST(SDR_ROOT, $ossie_cv_sdr_root)
+  AC_REQUIRE([OSSIE_OSSIEHOME])
+  if test "x${ossie_cv_ossie_home}" != "xNONE"; then
+    if test "x${prefix}" == "xNONE"; then
+      ac_default_prefix=${ossie_cv_ossie_home}
+      prefix=${ossie_cv_ossie_home}
+      AC_MSG_NOTICE(using ${ossie_cv_ossie_home} as installation prefix)
+    fi
+  fi
 ])
 
 dnl Let the user specify SDRROOT.  The priority is
@@ -1889,39 +1567,31 @@ dnl 1. the --with-sdr argument
 dnl 2. the SDRROOT environment variable
 dnl 3. the --prefix argument
 AC_DEFUN([OSSIE_SDRROOT],
-[
-  AC_CACHE_CHECK([for sdr root], ossie_cv_sdr_root,
-  [
-    AC_ARG_WITH(sdr,
-      AC_HELP_STRING([--with-sdr], [sdr root directory (default from environment variable 'SDRROOT', otherwise from prefix)]),
-      ossie_cv_sdr_root=$withval,
-      if test "x${SDRROOT}" != "x"; then
-        ossie_cv_sdr_root=${SDRROOT}
-      elif test "x${prefix}" != "xNONE"; then
-        ossie_cv_sdr_root=${prefix}
-      else
-        ossie_cv_sdr_root=$ac_default_prefix
-      fi
-    )
-  ])
-  AC_SUBST(SDR_ROOT, $ossie_cv_sdr_root)
+[AC_CACHE_CHECK(for sdr root,
+ossie_cv_sdr_root,
+[AC_ARG_WITH(sdr,
+             AC_HELP_STRING([--with-sdr], [sdr root directory, defaults to prefix]),
+             ossie_cv_sdr_root=$withval,
+             if test "x${SDRROOT}" != "x"; then
+               ossie_cv_sdr_root=${SDRROOT}
+             else
+               ossie_cv_sdr_root=$prefix
+             fi)
+])
+AC_SUBST(SDR_ROOT, $ossie_cv_sdr_root)
 ])
 
 dnl use SDRROOT as the default prefix unless --prefix is provided
 AC_DEFUN([OSSIE_SDRROOT_AS_PREFIX],
 [
-  AS_IF([test "x${prefix}" = "xNONE"],
-  [
-    dnl Prefix wasn't provided, we need to use sdr root
-    AC_REQUIRE([OSSIE_SDRROOT])
-    AS_IF([test "x${ossie_cv_sdr_root}" = "xNONE"], [
-      AC_MSG_ERROR([sdr root directory is not set; this is not expected])
-    ])
-    dnl Use sdr root value, suffixed with any arg to this macro, for the prefix
-    ac_default_prefix=${ossie_cv_sdr_root}/$1
-    prefix=${ossie_cv_sdr_root}/$1
-    AC_MSG_NOTICE(using ${ossie_cv_sdr_root}/$1 as installation prefix)
-  ])
+  AC_REQUIRE([OSSIE_SDRROOT])
+  if test "x${ossie_cv_sdr_root}" != "x"; then
+    if test "x${prefix}" == "xNONE"; then
+      ac_default_prefix=${ossie_cv_sdr_root}/$1
+      prefix=${ossie_cv_sdr_root}/$1
+      AC_MSG_NOTICE(using ${ossie_cv_sdr_root}/$1 as installation prefix)
+    fi
+  fi
 ])
 
 dnl other misc functions
@@ -1940,14 +1610,11 @@ if test "x$enable_log4cxx" != "xno"; then
   LIBS="$LIBS $LOG4CXX_LIBS"
   CPPFLAGS="${CPPFLAGS} ${LOG4CXX_CFLAGS}"
   AC_DEFINE(HAVE_LOG4CXX) 
-  AC_DEFINE(RH_LOGGER)
   AC_SUBST(HAVE_LOG4CXX,[-DHAVE_LOG4CXX=1]) 
   AC_SUBST(LOG4CXX_LIBS, $LOG4CXX_LIBS) 
   AC_SUBST(LOG4CXX_CFLAGS, $LOG4CXX_CFLAGS) 
 else
   WITH_LOG4CXX=no
-  AC_DEFINE(RH_LOGGER)
-  CPPFLAGS="${CPPFLAGS} -DRH_LOGGER"
   AC_SUBST(HAVE_LOG4CXX) 
   AC_SUBST(LOG4CXX_LIBS) 
   AC_SUBST(LOG4CXX_CFLAGS) 

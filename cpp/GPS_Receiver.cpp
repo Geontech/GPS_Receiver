@@ -1,15 +1,21 @@
+
 /**************************************************************************
 
-    This is the device code. This file contains the child class where
-    custom functionality can be added to the device. Custom
+    This is the component code. This file contains the child class where
+    custom functionality can be added to the component. Custom
     functionality to the base class can be extended here. Access to
     the ports can also be done from this class
 
+ 	Source: gps_receiver.spd.xml
+ 	Generated on: Fri Oct 11 10:40:13 EDT 2013
+ 	REDHAWK IDE
+ 	Version: 1.8.4
+ 	Build id: R201305151907
+
 **************************************************************************/
 
-#include "GPS_Receiver.h"
-
-PREPARE_LOGGING(GPS_Receiver_i)
+#include "gps_receiver.h"
+using namespace boost;
 
 /* For serial interface */
 #include <termios.h>
@@ -17,8 +23,6 @@ PREPARE_LOGGING(GPS_Receiver_i)
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-const int BUFF_SIZE = 256;
 
 using namespace std;
 
@@ -32,50 +36,78 @@ double degMinSec_to_dec(double dms) {
 	return result;
 }
 
-GPS_Receiver_i::GPS_Receiver_i(char *devMgr_ior, char *id, char *lbl, char *sftwrPrfl) :
-    GPS_Receiver_base(devMgr_ior, id, lbl, sftwrPrfl)
-{
+string int_array_to_char(int int_array[], int size_of_array, string token){
+	stringstream returnstring;
+	for (int temp = 0; temp < size_of_array; temp++) {
+		returnstring << int_array[temp];
+		if (temp != size_of_array - 1) returnstring << token;
+	}
+
+	return returnstring.str();
 }
 
-GPS_Receiver_i::GPS_Receiver_i(char *devMgr_ior, char *id, char *lbl, char *sftwrPrfl, char *compDev) :
-    GPS_Receiver_base(devMgr_ior, id, lbl, sftwrPrfl, compDev)
+PREPARE_LOGGING(gps_receiver_i)
+
+gps_receiver_i::gps_receiver_i(char *devMgr_ior, char *id, char *lbl, char *sftwrPrfl) :
+    gps_receiver_base(devMgr_ior, id, lbl, sftwrPrfl)
 {
+	_construct();
 }
 
-GPS_Receiver_i::GPS_Receiver_i(char *devMgr_ior, char *id, char *lbl, char *sftwrPrfl, CF::Properties capacities) :
-    GPS_Receiver_base(devMgr_ior, id, lbl, sftwrPrfl, capacities)
+gps_receiver_i::gps_receiver_i(char *devMgr_ior, char *id, char *lbl, char *sftwrPrfl, char *compDev) :
+    gps_receiver_base(devMgr_ior, id, lbl, sftwrPrfl, compDev)
 {
+	_construct();
 }
 
-GPS_Receiver_i::GPS_Receiver_i(char *devMgr_ior, char *id, char *lbl, char *sftwrPrfl, CF::Properties capacities, char *compDev) :
-    GPS_Receiver_base(devMgr_ior, id, lbl, sftwrPrfl, capacities, compDev)
+gps_receiver_i::gps_receiver_i(char *devMgr_ior, char *id, char *lbl, char *sftwrPrfl, CF::Properties capacities) :
+    gps_receiver_base(devMgr_ior, id, lbl, sftwrPrfl, capacities)
 {
-	this->addPropertyChangeListener("serial_port", this, &GPS_Receiver_i::configure_serial_port);
+	_construct();
 }
 
-GPS_Receiver_i::~GPS_Receiver_i()
+gps_receiver_i::gps_receiver_i(char *devMgr_ior, char *id, char *lbl, char *sftwrPrfl, CF::Properties capacities, char *compDev) :
+    gps_receiver_base(devMgr_ior, id, lbl, sftwrPrfl, capacities, compDev)
 {
+	_construct();
 }
 
-void GPS_Receiver_i::_construct() {
+gps_receiver_i::~gps_receiver_i()
+{
+	if (0 < gps_fd)
+		close(gps_fd);
+
+	nmea_parser_destroy(&parser);
+}
+
+void gps_receiver_i::configure (const CF::Properties& configProperties)
+	throw (CF::PropertySet::PartialConfiguration,
+		   CF::PropertySet::InvalidConfiguration,
+		   CORBA::SystemException)
+		   {
+	gps_receiver_base::configure(configProperties);
+	start();
+}
+
+void gps_receiver_i::_construct() {
 	_worker = NULL;
 	_buffer.set_capacity(BUFF_SIZE);
 	_buffer.clear();
 
-	nmea_parser_init(&_parser);
-	memset(&_bufferInfo, 0, sizeof(_bufferInfo));
+	nmea_parser_init(&parser);
+	memset(&bufferInfo, 0, sizeof(bufferInfo));
 
 	// Setup serial port and issue cold start
 	struct termios tty;
 	memset(&tty, 0, sizeof(tty));
 
-	_gps_fd = open(serial_port.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
-	if (_gps_fd < 0) {
-		LOG_ERROR(GPS_Receiver_i, "Aborting. Failed to open: " + serial_port);
+	gps_fd = open(serial_port.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
+	if (gps_fd < 0) {
+		LOG_ERROR(gps_receiver_i, "Aborting. Failed to open: " + serial_port);
 		return;
 	}
 
-	LOG_DEBUG(GPS_Receiver_i, "Serial port to GPS is now open");
+	LOG_DEBUG(gps_receiver_i, "Serial port to GPS is now open");
 
 	// From tldp.org/HOWTO/Serial-Programming-HOWTO/x115.html
 	// Modified with:
@@ -103,64 +135,34 @@ void GPS_Receiver_i::_construct() {
 	tty.c_cc[VWERASE]  = 0;     /* Ctrl-w */
 	tty.c_cc[VLNEXT]   = 0;     /* Ctrl-v */
 	tty.c_cc[VEOL2]    = 0;     /* '\0' */
-	tcflush (_gps_fd, TCIFLUSH);	// Flush modem lines
-	tcsetattr(_gps_fd, TCSANOW, &tty); // Set attributes
+	tcflush (gps_fd, TCIFLUSH);	// Flush modem lines
+	tcsetattr(gps_fd, TCSANOW, &tty); // Set attributes
 
 	// Issue SiRF Star IV Cold Restart command to device
 	const char *init = "$PSRF101,0,0,0,0,0,0,12,4*10\r\n";
-	write(_gps_fd, init, sizeof(init));
+	write(gps_fd, init, sizeof(init));
 
-	LOG_INFO(GPS_Receiver_i, "Connected to GPS Receiver");
+	LOG_INFO(gps_receiver_i, "Connected to GPS Receiver");
 }
 
-void GPS_Receiver_i::configure_serial_port(const char* oldValue, const char* newValue) {
-	serial_port = newValue;
-	if (this->_started) {
-		this->stop();
-	}
-	this->start();
-}
+void gps_receiver_i::start() throw (CF::Resource::StartError, CORBA::SystemException) {
+	// Call base class
+	gps_receiver_base::start();
 
-/**************************************************************************
-
-    This is called automatically after allocateCapacity or deallocateCapacity are called.
-    Your implementation should determine the current state of the device:
-
-       setUsageState(CF::Device::IDLE);   // not in use
-       setUsageState(CF::Device::ACTIVE); // in use, with capacity remaining for allocation
-       setUsageState(CF::Device::BUSY);   // in use, with no capacity remaining for allocation
-
-**************************************************************************/
-void GPS_Receiver_i::updateUsageState()
-{
-	if (this->_started) {
-		setUsageState(CF::Device::ACTIVE);
-	}
-	else {
-		setUsageState(CF::Device::IDLE);
-	}
-}
-
-void GPS_Receiver_i::start() throw (CF::Resource::StartError, CORBA::SystemException) {
-	// Call base class and construct
-	GPS_Receiver_base::start();
-
-    _construct();
-
-	if (0 >= _gps_fd) {
+	if (0 >= gps_fd) {
 		_worker = NULL;
-		LOG_WARN(GPS_Receiver_i, "Unable to start.  Serial connection to GPS receiver not found.");
+		LOG_WARN(gps_receiver_i, "Unable to start.  Serial connection to GPS receiver not found.");
 		stop();
 	}
 	else {
 		mutex::scoped_lock lock(_bufferMutex);
-		_worker = new thread(&GPS_Receiver_i::_workerFunction, this);
+		_worker = new thread(&gps_receiver_i::_workerFunction, this);
 	}
 }
 
-void GPS_Receiver_i::stop() throw (CF::Resource::StopError, CORBA::SystemException) {
+void gps_receiver_i::stop() throw (CF::Resource::StopError, CORBA::SystemException) {
 	// Call base
-	GPS_Receiver_base::stop();
+	gps_receiver_base::stop();
 
 	mutex::scoped_lock lock(_bufferMutex);
 	if (NULL != _worker) {
@@ -170,12 +172,8 @@ void GPS_Receiver_i::stop() throw (CF::Resource::StopError, CORBA::SystemExcepti
 		_worker = NULL;
 	}
 
-    if (0 < _gps_fd)
-	    close(_gps_fd);
-
-    nmea_parser_destroy(&_parser);
+	setUsageState(CF::Device::IDLE);
 }
-
 /***********************************************************************************************
 
     Basic functionality:
@@ -188,13 +186,32 @@ void GPS_Receiver_i::stop() throw (CF::Resource::StopError, CORBA::SystemExcepti
         
     SRI:
         To create a StreamSRI object, use the following code:
-                std::string stream_id = "testStream";
-                BULKIO::StreamSRI sri = bulkio::sri::create(stream_id);
+        	stream_id = "";
+	    	sri = BULKIO::StreamSRI();
+	    	sri.hversion = 1;
+	    	sri.xstart = 0.0;
+	    	sri.xdelta = 0.0;
+	    	sri.xunits = BULKIO::UNITS_TIME;
+	    	sri.subsize = 0;
+	    	sri.ystart = 0.0;
+	    	sri.ydelta = 0.0;
+	    	sri.yunits = BULKIO::UNITS_NONE;
+	    	sri.mode = 0;
+	    	sri.streamID = this->stream_id.c_str();
 
 	Time:
 	    To create a PrecisionUTCTime object, use the following code:
-                BULKIO::PrecisionUTCTime tstamp = bulkio::time::utils::now();
-
+	        struct timeval tmp_time;
+	        struct timezone tmp_tz;
+	        gettimeofday(&tmp_time, &tmp_tz);
+	        double wsec = tmp_time.tv_sec;
+	        double fsec = tmp_time.tv_usec / 1e6;;
+	        BULKIO::PrecisionUTCTime tstamp = BULKIO::PrecisionUTCTime();
+	        tstamp.tcmode = BULKIO::TCM_CPU;
+	        tstamp.tcstatus = (short)1;
+	        tstamp.toff = 0.0;
+	        tstamp.twsec = wsec;
+	        tstamp.tfsec = fsec;
         
     Ports:
 
@@ -204,8 +221,7 @@ void GPS_Receiver_i::stop() throw (CF::Resource::StopError, CORBA::SystemExcepti
 
         The argument to the getPacket function is a floating point number that specifies
         the time to wait in seconds. A zero value is non-blocking. A negative value
-        is blocking.  Constants have been defined for these values, bulkio::Const::BLOCKING and
-        bulkio::Const::NON_BLOCKING.
+        is blocking.
 
         Each received dataTransfer is owned by serviceFunction and *MUST* be
         explicitly deallocated.
@@ -213,17 +229,17 @@ void GPS_Receiver_i::stop() throw (CF::Resource::StopError, CORBA::SystemExcepti
         To send data using a BULKIO interface, a convenience interface has been added 
         that takes a std::vector as the data input
 
-        NOTE: If you have a BULKIO dataSDDS or dataVITA49  port, you must manually call 
+        NOTE: If you have a BULKIO dataSDDS port, you must manually call 
               "port->updateStats()" to update the port statistics when appropriate.
 
         Example:
-            // this example assumes that the device has two ports:
-            //  A provides (input) port of type bulkio::InShortPort called short_in
-            //  A uses (output) port of type bulkio::OutFloatPort called float_out
+            // this example assumes that the component has two ports:
+            //  A provides (input) port of type BULKIO::dataShort called short_in
+            //  A uses (output) port of type BULKIO::dataFloat called float_out
             // The mapping between the port and the class is found
-            // in the device base class header file
+            // in the component base class header file
 
-            bulkio::InShortPort::dataTransfer *tmp = short_in->getPacket(bulkio::Const::BLOCKING);
+            BULKIO_dataShort_In_i::dataTransfer *tmp = short_in->getPacket(-1);
             if (not tmp) { // No data is available
                 return NOOP;
             }
@@ -243,17 +259,7 @@ void GPS_Receiver_i::stop() throw (CF::Resource::StopError, CORBA::SystemExcepti
             delete tmp; // IMPORTANT: MUST RELEASE THE RECEIVED DATA BLOCK
             return NORMAL;
 
-        If working with complex data (i.e., the "mode" on the SRI is set to
-        true), the std::vector passed from/to BulkIO can be typecast to/from
-        std::vector< std::complex<dataType> >.  For example, for short data:
-
-            bulkio::InShortPort::dataTransfer *tmp = myInput->getPacket(bulkio::Const::BLOCKING);
-            std::vector<std::complex<short> >* intermediate = (std::vector<std::complex<short> >*) &(tmp->dataBuffer);
-            // do work here
-            std::vector<short>* output = (std::vector<short>*) intermediate;
-            myOutput->pushPacket(*output, tmp->T, tmp->EOS, tmp->streamID);
-
-        Interactions with non-BULKIO ports are left up to the device developer's discretion
+        Interactions with non-BULKIO ports are left up to the component developer's discretion
 
     Properties:
         
@@ -263,7 +269,7 @@ void GPS_Receiver_i::stop() throw (CF::Resource::StopError, CORBA::SystemExcepti
         "prop_n", where "n" is the ordinal number of the property in the PRF file.
         Property types are mapped to the nearest C++ type, (e.g. "string" becomes
         "std::string"). All generated properties are declared in the base class
-        (GPS_Receiver_base).
+        (gps_receiver_base).
     
         Simple sequence properties are mapped to "std::vector" of the simple type.
         Struct properties, if used, are mapped to C++ structs defined in the
@@ -282,42 +288,36 @@ void GPS_Receiver_i::stop() throw (CF::Resource::StopError, CORBA::SystemExcepti
                 dataOut[i] = dataIn[i];
             }
             
-        Callback methods can be associated with a property so that the methods are
+        A callback method can be associated with a property so that the method is
         called each time the property value changes.  This is done by calling 
-        addPropertyChangeListener(<property name>, this, &GPS_Receiver_i::<callback method>)
+        setPropertyChangeListener(<property name>, this, &gps_receiver::<callback method>)
         in the constructor.
-
-        Callback methods should take two arguments, both const pointers to the value
-        type (e.g., "const float *"), and return void.
-
+            
         Example:
             // This example makes use of the following Properties:
             //  - A float value called scaleValue
             
-        //Add to GPS_Receiver.cpp
-        GPS_Receiver_i::GPS_Receiver_i(const char *uuid, const char *label) :
-            GPS_Receiver_base(uuid, label)
+        //Add to gps_receiver.cpp
+        gps_receiver_i::gps_receiver_i(const char *uuid, const char *label) :
+            gps_receiver_base(uuid, label)
         {
-            addPropertyChangeListener("scaleValue", this, &GPS_Receiver_i::scaleChanged);
+            setPropertyChangeListener("scaleValue", this, &gps_receiver_i::scaleChanged);
         }
 
-        void GPS_Receiver_i::scaleChanged(const float *oldValue, const float *newValue)
-        {
-            std::cout << "scaleValue changed from" << *oldValue << " to " << *newValue
-                      << std::endl;
+        void gps_receiver_i::scaleChanged(const std::string& id){
+            std::cout << "scaleChanged scaleValue " << scaleValue << std::endl;
         }
             
-        //Add to GPS_Receiver.h
-        void scaleChanged(const float* oldValue, const float* newValue);
+        //Add to gps_receiver.h
+        void scaleChanged(const std::string&);
         
         
 ************************************************************************************************/
-int GPS_Receiver_i::serviceFunction()
+int gps_receiver_i::serviceFunction()
 {
     // If buffer has data, parse NMEA messages using NMEA Library.
     std::string temp;
     int msgCount = 0;
-    int retval = NOOP;
 
     mutex::scoped_lock lock(_bufferMutex);
 
@@ -335,62 +335,61 @@ int GPS_Receiver_i::serviceFunction()
     		temp.push_back(_buffer[i]);
     	}
 
-    	LOG_TRACE(GPS_Receiver_i, "Messages: \n" + temp);
+    	LOG_TRACE(gps_receiver_i, "Messages: \n" + temp);
 
     	// Parse and update bufferInfo
-		int numProcessed = nmea_parse(&_parser, temp.c_str(), temp.size(), &_bufferInfo);
+		int numProcessed = nmea_parse(&parser, temp.c_str(), temp.size(), &bufferInfo);
 
 		// For debugging
 		std::ostringstream dbg;
 		dbg << "Messages Good " << numProcessed << " vs. Bad " << msgCount << '\n';
 
 		if (0 < numProcessed) {
-			retval = NORMAL;
 			// Update gpsInfo
-			_gps_info.satellite_count = _bufferInfo.satinfo.inview;
+			_gpsInfo.satellite_count = bufferInfo.satinfo.inview;
 
 			// Update gpsTimePos w/ filter.
 			const double NEW = 0.1;
 			const double OLD = 0.9;
-			_gps_time_pos.position.alt =
-					(NEW * _bufferInfo.elv) +
-					(OLD * _gps_time_pos.position.alt);
+			_gpsTimePos.position.alt =
+					(NEW * bufferInfo.elv) +
+					(OLD * _gpsTimePos.position.alt);
 
-			_gps_time_pos.position.lat =
-					(NEW * degMinSec_to_dec(_bufferInfo.lat)) +
-				    (OLD * _gps_time_pos.position.lat);
+			_gpsTimePos.position.lat =
+					(NEW * degMinSec_to_dec(bufferInfo.lat)) +
+				    (OLD * _gpsTimePos.position.lat);
 
-			_gps_time_pos.position.lon =
-					(NEW * degMinSec_to_dec(_bufferInfo.lon)) +
-					(OLD * _gps_time_pos.position.lon);
+			_gpsTimePos.position.lon =
+					(NEW * degMinSec_to_dec(bufferInfo.lon)) +
+					(OLD * _gpsTimePos.position.lon);
 
 			// Convert UTC time
 			BULKIO::PrecisionUTCTime tstamp;
 
 			// Whole seconds
-			tstamp.twsec = 60.0 * ((60.0 * _bufferInfo.utc.hour) + (double) _bufferInfo.utc.min)
-					+ (double) _bufferInfo.utc.sec;
+			tstamp.twsec = 60.0 * ((60.0 * bufferInfo.utc.hour) + (double) bufferInfo.utc.min)
+					+ (double) bufferInfo.utc.sec;
 
 			// "fractional" seconds from 0.0 to 1.0.
 			// SiRF Star IV docs show GPS UTC format is in 1/100th seconds (hsec)
-			tstamp.tfsec = (double) _bufferInfo.utc.hsec / 100.0;
+			tstamp.tfsec = (double) bufferInfo.utc.hsec / 100.0;
 			tstamp.toff = 0.0;
 			tstamp.tcmode = 0;
 			tstamp.tcstatus = 1;
 
-			_gps_info.timestamp = tstamp;
-			_gps_time_pos.timestamp = tstamp;
+			_gpsInfo.timestamp = tstamp;
+			_gpsTimePos.timestamp = tstamp;
 
 			// Debug output
-			dbg << "Satellite count:    " << _bufferInfo.satinfo.inview << '\n';
+			dbg << "Satellite count:    " << bufferInfo.satinfo.inview << '\n';
 			dbg << "UTC Seconds:        " << tstamp.twsec << '\n';
-			dbg << "Latitude:           " << _bufferInfo.lat << '\n';
-			dbg << "Longitude:          " << _bufferInfo.lon << '\n';
-			dbg << "Elevation:          " << _bufferInfo.elv << '\n';
-			LOG_DEBUG(GPS_Receiver_i, dbg.str());
+			dbg << "Latitude:           " << bufferInfo.lat << '\n';
+			dbg << "Longitude:          " << bufferInfo.lon << '\n';
+			dbg << "Elevation:          " << bufferInfo.elv << '\n';
+			LOG_DEBUG(gps_receiver_i, dbg.str());
     	}
 		else {
-			LOG_DEBUG(GPS_Receiver_i, "No valid messages processed");
+			LOG_DEBUG(gps_receiver_i, "No valid messages processed");
 		}
 
 		// Cleanup
@@ -398,12 +397,12 @@ int GPS_Receiver_i::serviceFunction()
     }
 
     // validate data based on satellite count
-	_gps_time_pos.position.valid = (3 <= _gps_info.satellite_count) ? true : false;
+	_gpsTimePos.position.valid = (3 <= _gpsInfo.satellite_count) ? true : false;
 
-    return retval;
+    return NOOP;
 }
 
-void GPS_Receiver_i::_workerFunction() {
+void gps_receiver_i::_workerFunction() {
 	const int SIZE = 128;
 	int actualSize = 0;
 	unsigned char temp[SIZE];
@@ -413,7 +412,7 @@ void GPS_Receiver_i::_workerFunction() {
 	sleep(1);
 
 	while (!_worker->interruption_requested()) {
-		actualSize = read(_gps_fd, temp, SIZE);
+		actualSize = read(gps_fd, temp, SIZE);
 		if (0 < actualSize) {
 			mutex::scoped_lock lock(_bufferMutex);
 			for (int i = 0; i < actualSize; i++)
