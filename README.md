@@ -5,7 +5,7 @@ FEI-Compliant serial GPS Receiver for REDHAWK.  It has been tested against the U
 
 ## Setup
 
-Give the user that will run this Device access to whatever group owns `/dev/tty????`.  The default in CentOS 6.5 for example is `dailout` and the device shows on `/dev/ttyUSB0`:
+Give the user that will run this Device access to whatever group owns `/dev/tty????`.  The default in CentOS 6.5 for example is `dialout` and the device shows on `/dev/ttyUSB0`:
 
     crw-rw----. 1 root dialout 188, 0 Oct  8 07:38 /dev/ttyUSB0
 
